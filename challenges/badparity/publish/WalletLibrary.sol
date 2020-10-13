@@ -1,22 +1,24 @@
-pragma solidity ^0.4.12;
+pragma solidity ^0.5.4;
 
 contract WalletLibrary {
      address walletLibrary; 
-     address owner;
+     address payable owner;
+     address payable student;
 
      event LogValue(uint256 exitcode,uint256 amount);
 
-     function initWallet(address _owner) public payable {
+     function initWallet(address payable _owner) public payable {
         owner = _owner;
      }
 
-     function getOwner() public view returns (address) {
+     function getOwner() public view returns (address payable) {
         return owner;
      }
 
-     function changeOwner(address new_owner) public returns (bool success) {
+     function changeOwner(address payable new_owner) public returns (bool success) {
         if (msg.sender == owner) {
             owner = new_owner;
+            return true;
         } else {
             return false;
         }
@@ -30,7 +32,7 @@ contract WalletLibrary {
          }
      }
     
-     function () public payable {
+     function () external payable {
          emit LogValue(200,msg.value);
      }
 }

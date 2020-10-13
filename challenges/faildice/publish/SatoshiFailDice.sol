@@ -1,4 +1,5 @@
-pragma solidity ^0.4.25;
+//pragma solidity ^0.4.12;
+pragma solidity ^0.5.4;
 
 contract SatoshiFailDice{
     // Hint: use web3.toInt() when converting bytes to soldity uint - else values may not match
@@ -42,7 +43,8 @@ contract SatoshiFailDice{
     
     function PRNG(address sender) private view returns(uint8){
 				// Totally "awesome" PRNG
-        return uint8(keccak256(abi.encodePacked(sender, block.coinbase, now, big_secret)));
+        //return uint8(keccak256(abi.encodePacked(sender, block.coinbase, now, big_secret)));
+        return uint8(uint(keccak256(abi.encodePacked(sender, block.coinbase, now, big_secret))));
     }
 
     function getStudent() public view returns (address) {
@@ -50,7 +52,7 @@ contract SatoshiFailDice{
     }
 
     // allow paying funds 
-    function() public payable { }
+    function() external payable { }
 
     function withdraw(uint256 amount) public {
         require(msg.sender == owner);

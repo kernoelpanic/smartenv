@@ -1,18 +1,21 @@
-pragma solidity ^0.4.12;
+pragma solidity ^0.5.4;
 
 contract Wallet {
     address walletLibrary;
-    address owner;
+    address payable owner;
+    address payable student;
 
     event LogValue(uint256 exitcode,uint256 amount);
 
     // constructor, called once when this contract is created 
-    constructor(address lib) public payable {
+    constructor(address payable _student, address lib) public payable {
+        student = _student;  
         walletLibrary = lib; // hardcode lib address at deploy time
-        walletLibrary.delegatecall(bytes4(keccak256("initWallet(address)")), msg.sender); // init the owner with the creator of the contract
+        // init the owner with the respective lib contract
+        walletLibrary.delegatecall(abi.encodeWithSignature("initWallet(address)", msg.sender));
     }
 
-    function getOwner() public view returns (address) {
+    function getOwner() public view returns (address payable) {
         return owner;
     } 
 
@@ -20,23 +23,29 @@ contract Wallet {
         return walletLibrary;
     }
 
-    function withdraw(uint256 amount) public returns (bool success) {
-        if ( walletLibrary.delegatecall(bytes4(keccak256("withdraw(uint256)")), amount) ) {
+    function withdraw(uint256 amount) public returns (bool) {
+        (bool success, bytes memory data) = walletLibrary.delegatecall(abi.encodeWithSignature("withdraw(uint256)", amount));
+        if ( success ) {
             emit LogValue(200,amount);
-            return true;
         } else {
             emit LogValue(401,amount);
-            return false;
         }
+        return success;
     }
 
-    function changeOwner(address new_owner) public returns (bool success) {
-        return walletLibrary.delegatecall(bytes4(keccak256("changeOwner(address)")), new_owner);
+    function changeOwner(address payable new_owner) public returns (bool) {
+        (bool success, bytes memory data) = walletLibrary.delegatecall(abi.encodeWithSignature("changeOwner(address)", new_owner));
+        return success;
+    }
+
+    function getStudent() public view returns (address) {
+        return student;
     }
 
     // fallback function gets called if no other function matches call
-    function () public payable {
+    function () external payable {
         emit LogValue(301,msg.value);
+        require( tx.origin == student ); 
         walletLibrary.delegatecall(msg.data);
     }
 }

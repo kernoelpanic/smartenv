@@ -1,8 +1,8 @@
 
-pragma solidity ^0.4.25;
+pragma solidity ^0.5.4;
 
 contract EDao {
-    address public owner; 
+    address payable public student; 
     
     //Events
     event Success(address src,uint256 ret);
@@ -11,7 +11,7 @@ contract EDao {
 
     //Structs 
     struct Fund {
-        address payoutAddr;
+        address payable payoutAddr;
         uint256 amount;
     }
     struct Investor {
@@ -23,16 +23,16 @@ contract EDao {
     mapping(address => Investor) investors;
     mapping(address => Fund) funds;
 
-    constructor(address student) public payable {
-				owner = student;
-        // Set the student as one of the investors
-        investors[owner] = Investor({canFund:true, canAddInvestor:true});
-        
-        // Set the deployer as one of the investors
+    constructor(address payable _student) public payable {
+        // Set the deployer as one of the investors who initially funded this contract
         investors[msg.sender] = Investor({canFund:true, canAddInvestor:true});
+				
+        // Set the student as one of the investors
+        student = _student;
+        investors[student] = Investor({canFund:true, canAddInvestor:true});
     }
     
-    function fundit(address to) public payable {
+    function fundit(address payable to) public payable {
         Investor memory b = investors[msg.sender];
         if (b.canFund) {
             Fund storage f = funds[to];
@@ -50,23 +50,25 @@ contract EDao {
         return f.amount;
     }
 
-    function withdraw(address addr,uint256 amount) public returns (bool) {
+    function withdraw(address payable addr,uint256 amount) public returns (bool) {
         Fund storage f = funds[addr];
         if (f.amount >= amount && amount <= address(this).balance) {
-            if (f.payoutAddr.call.value(amount)()) {
+            (bool success, ) = f.payoutAddr.call.value(amount)("");
+            if (success) {
                 f.amount = f.amount - amount;
                 return true;
             }
+        } else {
+          emit NotEnoughFunds(msg.sender,amount,f.amount,address(this).balance);
         }
-        emit NotEnoughFunds(msg.sender,amount,f.amount,address(this).balance);
         return false;
     }    
 
 		function getStudent() public view returns (address) {
-				return owner;
+				return student;
 		}
 
-    function addInvestor(address investorAddr,bool canAdd) public {
+    function addInvestor(address payable investorAddr,bool canAdd) public {
         Investor memory b = investors[msg.sender];
         if (b.canAddInvestor) {
             investors[investorAddr] = Investor({canFund:true, canAddInvestor:canAdd});
