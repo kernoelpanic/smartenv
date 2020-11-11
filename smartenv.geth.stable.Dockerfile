@@ -58,7 +58,7 @@ RUN wget --progress=bar:force:noscroll -P /smartenv/ https://golang.org/dl/go1.1
 USER root
 RUN tar -C /usr/local -xzf /smartenv/*.tar.gz
 USER $UNAME
-RUN echo 'PATH=$PATH:/usr/local/go/bin' >> x/home/$UNAME/.profile
+RUN echo 'PATH=$PATH:/usr/local/go/bin' >> /home/$UNAME/.profile
 RUN echo "GO VERSION:" && /usr/local/go/bin/go version
 
 ### Install geth sources ###
