@@ -1,3 +1,5 @@
 /rustup-init.sh
 /openethereum
 /go-ethereum
+/datadir
+/passwordfile
