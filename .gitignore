@@ -3,3 +3,4 @@
 /go-ethereum
 /datadir
 /passwordfile
+.*.swp
