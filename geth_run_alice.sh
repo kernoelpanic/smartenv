@@ -24,8 +24,8 @@ fi
 # or all interfaces 
 if [ -z "${3}" ] && [ -z "${IFC+x}" ];
 then 
-	export IFC=127.0.0.1
-	#export IFC=0.0.0.0
+	#export IFC=127.0.0.1
+	export IFC=0.0.0.0
 elif [ ! -z "${3}" ];
 then
 	export IFC="${3}"
