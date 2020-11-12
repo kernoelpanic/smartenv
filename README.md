@@ -7,6 +7,11 @@ Default environment is using `geth`
 
 https://docs.docker.com/engine/install/ubuntu/
 
+Install some system tools:
+```bash
+apt-get install pwgen
+```
+
 ## Build docker image 
 
 The next step is building the docker image for the container that is running the ethereum node. 
@@ -45,6 +50,19 @@ Initialize alice
 ```bash
 $ bash geth_init_alice.sh 
 ```
+
+## Run node and extract information
+
+```bash
+$ bash geth_run_alice.sh
+$ bash geth_attach.sh
+> admin.nodeInfo.enode
+"enode://4f840bf9e6db654e7930a38aca6d1870c3a6a28ddc62aa4bd04c1703455404ec3ff120b357eafa013fd2d05cf3ea31d7f6fa1d27ff4f0bfaab2d9dd2b87d1bba@127.0.0.1:30303?discport=0"
+```
+
+## Test client bob
+
+On a different machine 
 
 ## Create student accounts 
 TODO

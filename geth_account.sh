@@ -7,10 +7,17 @@
 if [ -z "${PWFILE+x}" ];
 then
 	echo "PWFILE environment variable missing"
-	echo "No Password file given e.g., './passwordfile'"
-	exit 1 
+	echo "No Password file given using default './passwordfile'"
+	export PWFILE='./passwordfile'
 fi
 echo "PWFILE = ${PWFILE}"
+
+if [ -f "${PWFILE}" ];
+then
+	echo "using stored password ... "	
+else
+	pwgen -s -B 32 1 > ${PWFILE}
+fi
 
 if [ -z "${DATADIR+x}" ];
 then
@@ -24,9 +31,6 @@ echo "DATADIR = ${DATADIR}"
 # just to generate and manage keys
 docker run \
 	--mount type=bind,source=$(pwd),target=/smartenv \
-	--net smartnet \
-	--hostname smartenv \
-	--ip 172.18.0.5 \
 	-it smartenv:latest \
 		geth \
 		--datadir "${DATADIR}" \
