@@ -53,4 +53,4 @@ docker run \
 	--datadir "${DATADIR}" \
 	--verbosity 6 \
 	init "${DATADIR}/genesis.json" \
-	2> "logs/${NODEID}_log_init_$(date -Is).log"
+	2>&1 | tee "logs/${NODEID}_$(date -Is)_init.log"
