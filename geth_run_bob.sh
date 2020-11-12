@@ -44,6 +44,11 @@ WSPORT=8546
 WSIFC="0.0.0.0"
 PORT=$CPORT
 
+if [ -z "${BOOTNODE+x}" ];
+then
+  export BOOTNODE="enode://4f840bf9e6db654e7930a38aca6d1870c3a6a28ddc62aa4bd04c1703455404ec3ff120b357eafa013fd2d05cf3ea31d7f6fa1d27ff4f0bfaab2d9dd2b87d1bba@131.130.126.71:30303?discport=30303"
+fi
+
 docker run \
   -p ${IFC}:${CPORT}:${HPORT} \
   -p 127.0.0.1:${PRCPORT}:${RPCPORT} \
@@ -53,7 +58,7 @@ docker run \
   --hostname smartenv \
   --ip 172.18.0.5 \
   -it smartenv:latest geth \
-  	--identity "${NODEID}" \
+  --identity "${NODEID}" \
 	--networkid "${NETID}" \
 	--datadir "${DATADIR}" \
 	--http \
@@ -68,7 +73,7 @@ docker run \
 	--ws.api "eth,net,web3,personal,debug,admin,miner,txpool,clique" \
 	--ws.origins "*" \
 	--ipcdisable \
-	--nodiscover \
+	--bootnodes "${BOOTNODE}" \
 	--metrics \
 	--verbosity 6 \
 	console \
