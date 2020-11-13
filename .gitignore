@@ -5,3 +5,4 @@
 /passwordfile
 .*.swp
 /logs
+*.pyc
