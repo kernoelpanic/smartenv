@@ -4,13 +4,13 @@
 # Default is a geth environment with 
 # the version tag specified in this file
 # example:
-# $ DOCKERFILE=smartenv.geth.stable.Dockerfile VERSIONTAG=v1.9.23 bash docker_build_smartenv.sh
+# $ DOCKERFILE=smartenv.geth.latest.Dockerfile VERSIONTAG=v1.9.23 bash docker_build_smartenv.sh
 set -e 
 
 # Default docker file for smartenv is geth
 if [ -z "${1}" ] && [ -z "${DOCKERFILE+x}" ];
 then 
-	export DOCKERFILE="smartenv.geth.stable.Dockerfile"
+	export DOCKERFILE="smartenv.geth.latest.Dockerfile"
 elif [ ! -z "${1}" ];
 then
 	export DOCKERFILE="${1}"

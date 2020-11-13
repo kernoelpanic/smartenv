@@ -21,6 +21,10 @@ RUN useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 RUN apt-get update 
 RUN apt-get dist-upgrade -y
 
+# Configure timezone 
+ENV TZ=Europe/Berlin
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezon
+
 # basic python3.8 setup
 # To be explicit and use pip3 to install packages  
 # can be installed by invoking like this:
