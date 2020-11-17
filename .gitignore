@@ -7,3 +7,4 @@
 .*.swp
 /logs
 *.pyc
+.ipynb_checkpoints
