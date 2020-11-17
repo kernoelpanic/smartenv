@@ -2,6 +2,7 @@
 /openethereum
 /go-ethereum
 /datadir
+/generated_config
 /passwordfile
 .*.swp
 /logs
