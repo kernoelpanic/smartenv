@@ -56,7 +56,7 @@ docker run \
   --mount type=bind,source=$(pwd),target=/smartenv \
   --net smartnet \
   --hostname smartenv \
-  --ip 172.18.0.5 \
+  --ip 172.18.0.8 \
   -it smartenv:latest geth \
   --identity "${NODEID}" \
 	--networkid "${NETID}" \
