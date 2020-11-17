@@ -1,7 +1,15 @@
 # Smartenv
 
-Environment for local/private ethereum chains 
-Default environment is using `geth`
+This repository holds the setup for a local/private Ethereum test networks of different kinds,
+including a smart contract crash crourse and exercies in form of challenges (without solutions ;)
+
+The setup guid for this repository can be view from two perspectives:
+
+* As a **[tutor](./README_TUTOR.md)** who wants to setup the challenge environment for *participants*.
+
+* As a **[participant](./README_PARTICIPANT.md})** who just wants to learn about smart contracts on Ethereuem 
+by solving the challenges in this repository, which have been setup by a tutor. 
+
 
 ## Install docker ce 
 
