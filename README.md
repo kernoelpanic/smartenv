@@ -7,70 +7,73 @@ The setup guid for this repository can be view from two perspectives:
 
 * As a **[tutor](./README_TUTOR.md)** who wants to setup the challenge environment for *participants*.
 
-* As a **[participant](./README_PARTICIPANT.md})** who just wants to learn about smart contracts on Ethereuem 
+* As a **[participant](./general_info/README.md})** who just wants to learn about smart contracts on Ethereuem 
 by solving the challenges in this repository, which have been setup by a tutor. 
 
+In **any case** you will need to satisfy the following requirements: 
+* Your favorite Linux distribution (tested on Ubuntu 20.04 Focal) with some system tools installed 
+* A working **docker ce** installation
+
+## Setup Linux environment
+
+Most of the tools needed in the shell scripts should alread be present 
+on a standard installation. The follwing system tools might additionally 
+be required:
+```bash
+$ apt-get install pwgen
+```
 
 ## Install docker ce 
 
+Install docker according to your respective Linux distribution:
+
 https://docs.docker.com/engine/install/ubuntu/
 
-Install some system tools:
-```bash
-apt-get install pwgen
-```
+## Build docker images
 
-## Build docker image 
+The next step is building the docker images for the containers that are running Ethereum nodes and our development environment. Note that the build and run shell scripts for the containers use 
+the current user/group to map this directory into the running container later. 
+So make sure the user who builds the containers is the same user that will run the containers later. 
 
-The next step is building the docker image for the container that is running the ethereum node. 
-It is possible to use already available go-ethereum sources (and builds) located in this directory
-in a folder named `go-ethereum`. If such a folder is not available the current sources will be fetched. 
+### go-ethereum docker container
+It is possible to use already available [go-ethereum sources]() (and builds) located in this directory
+in a folder named `go-ethereum`. 
+If such a folder is not available the current sources will be fetched. 
 It is also possible to provide a specific version tag to the docker build script. 
+The latest version this has been tested is **v1.9.23**.
+The docker file ([smartenv.geth.stable.Dockerfile](./smartenv.geth.stable.Dockerfile)) which configures this container can also be provided.
+
 ```bash
 $ DOCKERFILE=smartenv.geth.stable.Dockerfile VERSIONTAG=v1.9.23 bash docker_build_smartenv.sh
 ```
 
-## Create consensus node account and test account
+If you check out the docker file, you see the detailed step-by-step guide for setting up a build environment for `geth` and compile the `go-ethereum` client from scratch. 
+This would not be necessary when relying on binaries or ready to use containers provided by the developers. But since we are here to learn something :) this approach provides the largest degree of flexibility and customization. 
+
+
+### development (web3.py) docker container 
+This container hosts our [web3.py](https://pypi.org/project/web3/) development environment and spawns a `jupyter` notebook to interact with our client (or PoA consensus node). 
 
 ```bash
-$ PWFILE=./passwordfile DATADIR=./datadir/alice/ bash geth_account.sh new
-[...]
-Public address of the key:   0xe63419B7c0be62A6127923fb70C32A5ca1926a16
-Path of the secret key file: datadir/alice/keystore/UTC--2020-11-12T09-53-29.399025746Z--e63419b7c0be62a6127923fb70c32a5ca1926a16
-[...]
-
-$ PWFILE=./passwordfile DATADIR=./datadir/bob/ bash geth_account.sh new
-[...]
-Public address of the key:   0x594DbFDF2Ba652d0Bee6f644099b448a99B1cf9f
-Path of the secret key file: datadir/bob/keystore/UTC--2020-11-12T09-54-53.562249037Z--594dbfdf2ba652d0bee6f644099b448a99b1cf9f
-[...]
+$ bash docker_build_smartcode.sh
 ```
 
-## Parameterize node
+Again, to see what useful additional tools are installed check out the docker file [smartcode.python.latest.Dockerfile](./smartcode.python.latest.Dockerfile).
 
-Adapt genesis json file with account of `alice` our one clique node
-```bash 
-$ cp genesis_template.json genesis.json
-$ bash replace_address.sh genesis.json e63419B7c0be62A6127923fb70C32A5ca1926a16
-```
 
-Initialize alice
-```bash
-$ bash geth_init_alice.sh 
-```
-
-## Run node and extract information
+### ganache docker container 
+Our development container requires either a full node to connect to or a `ganache` test node
+to connect to. This will fetch the latest ganache container from docker hub. 
 
 ```bash
-$ bash geth_run_alice.sh
-$ bash geth_attach.sh
-> admin.nodeInfo.enode
-"enode://4f840bf9e6db654e7930a38aca6d1870c3a6a28ddc62aa4bd04c1703455404ec3ff120b357eafa013fd2d05cf3ea31d7f6fa1d27ff4f0bfaab2d9dd2b87d1bba@127.0.0.1:30303?discport=0"
+$ bash docker_build_ganache.sh
 ```
 
-## Test client bob
 
-On a different machine 
+## Continue ...
 
-## Create student accounts 
-TODO
+If docker and the containers have been setup you are free to continue depending on what you want to do:
+
+* Continue as [Tutor](./README_TUTOR.md) setting up the environment for participants ...
+* Continue as [participant](./general_info/README.md}) solving the challenges ... 
+

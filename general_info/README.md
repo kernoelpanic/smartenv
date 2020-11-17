@@ -1,6 +1,9 @@
-# Ethereuem and Smart Contracts 
+# Setup for Participants  
 
-Every student has received:
+So your are a participants in a course/lecture/training which uses this challenge 
+environment and challenges. 
+
+You should have received:
 
 * A public/private key pair (i.e., an external account). This is the file starting with `UTC--`.
 This account should be initialized with a balance of `16` *EveCoins* (our private fake ether),  which should be more than enough to solve all challenges.
@@ -20,7 +23,7 @@ This is the file `addresses`.
 
 ## Task
 
-Your task is it to exploit the 4 (personalized) challenges and use their  
+Your task is it to exploit the (personalized) challenges and use their  
 funds to increase the balance of **your** *external account*, which was initialized with `16` *EveCoins*.
 
 All your challenges can award you with `100` *EveCoins* max. (`30*3 + 10`), including your initial funds you can get more than `100` *EveCoins*.
@@ -44,7 +47,7 @@ So you might want to test your solutions first in a `ganache` test network as sh
 In case of questions, or confessing painful mistakes contact please us. 
 
 **Note:** 
-Just in case that murphy's law manifests itself, we ask you to upload a brief description (in markdown or as plain text file) of how you solved the challenges in TUWEL as a backup and as a reminder for you in case you have to "replay" your solutions on a newly initialized blockchain instance.
+Just in case that murphy's law manifests itself, also keep track of an description (in markdown or as plain text file) of how you solved the challenges as a backup and as a reminder for you in case you have to "replay" your solutions on a newly initialized blockchain instance.
 You can keep the description very short and informal consisting mainly of commands and source code dumps. 
 
 
