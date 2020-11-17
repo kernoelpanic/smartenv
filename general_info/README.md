@@ -5,11 +5,11 @@ environment and challenges.
 
 You should have received:
 
-* A public/private key pair (i.e., an external account). This is the file starting with `UTC--`.
+* A **public/private key pair** (i.e., an external account). This is the file starting with `UTC--`.
 This account should be initialized with a balance of `16` *EveCoins* (our private fake ether),  which should be more than enough to solve all challenges.
 To use your pre-generated account just copy the file starting with `UTC--` into your `datadir/bob/keystore` folder in the data directory of your client.
 
-* The password file to this account. This is the file `passwordfile`.
+* The **password file** to this account. This is the file `passwordfile`.
 It contains the password to unlock and use this account. 
 
 * A `genesis.json` file describing the first block of our custom Proof-of-Authority (PoA) Ethereum blockchain. 
@@ -61,6 +61,10 @@ Then initialize your client (bob), and run it which should automatically connect
 ```bash
 $ ntpdate ntp.ubuntu.com
 $ bash geth_init_bob.sh
+```
+
+Now copy your personal key file into the folder `datadir/bob/keystore`
+```bash
 $ bash geth_run_bob.sh 
 ```
 

@@ -36,12 +36,12 @@ the current user/group to map this directory into the running container later.
 So make sure the user who builds the containers is the same user that will run the containers later. 
 
 ### go-ethereum docker container
-It is possible to use already available [go-ethereum sources]() (and builds) located in this directory
+It is possible to use already available [go-ethereum sources](https://github.com/ethereum/go-ethereum) (and builds) located in this directory
 in a folder named `go-ethereum`. 
 If such a folder is not available the current sources will be fetched. 
 It is also possible to provide a specific version tag to the docker build script. 
 The latest version this has been tested is **v1.9.23**.
-The docker file ([smartenv.geth.stable.Dockerfile](./smartenv.geth.stable.Dockerfile)) which configures this container can also be provided.
+The docker file ([smartenv.geth.latest.Dockerfile](./smartenv.geth.latest.Dockerfile)) which configures this container can also be provided.
 
 ```bash
 $ DOCKERFILE=smartenv.geth.stable.Dockerfile VERSIONTAG=v1.9.23 bash docker_build_smartenv.sh
@@ -75,5 +75,5 @@ $ bash docker_build_ganache.sh
 If docker and the containers have been setup you are free to continue depending on what you want to do:
 
 * Continue as [Tutor](./README_TUTOR.md) setting up the environment for participants ...
-* Continue as [participant](./general_info/README.md}) solving the challenges ... 
+* Continue as [participant](./general_info/README.md) solving the challenges ... 
 
