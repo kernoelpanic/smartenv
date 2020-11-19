@@ -7,7 +7,7 @@ The setup guid for this repository can be view from two perspectives:
 
 * As a **[tutor](./README_TUTOR.md)** who wants to setup the challenge environment for *participants*.
 
-* As a **[participant](./general_info/README.md})** who just wants to learn about smart contracts on Ethereuem 
+* As a **[participant](./general_info/README.md)** who just wants to learn about smart contracts on Ethereuem 
 by solving the challenges in this repository, which have been setup by a tutor. 
 
 In **any case** you will need to satisfy the following requirements: 
