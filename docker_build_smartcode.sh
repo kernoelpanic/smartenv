@@ -10,6 +10,7 @@ set -e
 # Build smartcode
 # Get uid and gid of current user
 # In most cases this will be 1000
+# Take care that this user is in the docker group
 docker build --build-arg UID=$(id -u) --build-arg GID=$(id -g) -f smartcode.python.latest.Dockerfile -t smartcode:latest .
 
 # check if network exists if not create it

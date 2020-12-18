@@ -36,6 +36,7 @@ fi
 DATADIR="datadir/alice/"
 NETID="1337"
 NODEID="alice"
+mkdir -p ${DATADIR}
 cp genesis_config/go-ethereum/genesis.json ${DATADIR}genesis.json
 mkdir -p logs
 
