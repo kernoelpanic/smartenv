@@ -24,6 +24,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "PhilippSchindler",
+      "name": "Philipp Schindler",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4274886?v=4",
+      "profile": "https://github.com/PhilippSchindler",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "projectName": "smartenv",
