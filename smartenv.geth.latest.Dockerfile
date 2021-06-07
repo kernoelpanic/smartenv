@@ -22,18 +22,18 @@ RUN mkdir ./geth
 COPY --chown=$UID:$GID ./go-ethereum/ ./go-ethereum/
 
 ### update, upgrade and install basic tools ###
-RUN apt-get update 
-RUN apt-get dist-upgrade -y
+RUN apt update 
+RUN apt dist-upgrade -y
 # Required system tools 
-RUN apt-get install -y git wget curl
+RUN apt install -y git wget curl
 # Additional system tools 
-RUN apt-get install -y vim iputils-ping netcat iproute2 sudo
+RUN apt install -y vim iputils-ping netcat iproute2 sudo
 
 ### Install dependencies for geth build ###
 # to avoid prompt for tzdata
 ENV TZ=Europe/Berlin
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezon
-RUN apt-get install -y build-essential make 
+RUN apt install -y build-essential make 
 
 ### Install dependencies for geth devtools build ###
 # Install solc 
@@ -45,9 +45,9 @@ RUN cd /usr/local/bin \
   && cp solc_8.4 solc \
   && chmod 755 solc*
 # Install npm
-RUN apt-get install -y npm
+RUN apt install -y npm
 # Install google protocol buffers command line tool (protoc)
-RUN apt-get install -y unzip
+RUN apt install -y unzip
 RUN cd /usr/local/bin \
   && wget -qO protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0-rc2/protoc-3.14.0-rc-2-linux-x86_64.zip \
   && unzip

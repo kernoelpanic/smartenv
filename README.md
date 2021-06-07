@@ -54,7 +54,7 @@ The latest version this has been tested is **v1.9.23**.
 The docker file ([smartenv.geth.latest.Dockerfile](./smartenv.geth.latest.Dockerfile)) which configures this container can also be provided.
 
 ```bash
-$ DOCKERFILE=smartenv.geth.stable.Dockerfile VERSIONTAG=v1.9.23 bash docker_build_smartenv.sh
+$ DOCKERFILE=smartenv.geth.latest.Dockerfile VERSIONTAG=v1.10.3 bash docker_build_smartenv.sh
 ```
 
 If you check out the docker file, you see the detailed step-by-step guide for setting up a build environment for `geth` and compile the `go-ethereum` client from scratch. 

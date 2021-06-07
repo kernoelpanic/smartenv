@@ -46,7 +46,7 @@ PORT=$CPORT
 
 if [ -z "${BOOTNODE+x}" ];
 then
-  export BOOTNODE="enode://4f840bf9e6db654e7930a38aca6d1870c3a6a28ddc62aa4bd04c1703455404ec3ff120b357eafa013fd2d05cf3ea31d7f6fa1d27ff4f0bfaab2d9dd2b87d1bba@131.130.126.71:30303?discport=30303"
+  export BOOTNODE="enode://4f6ddbb594825127b63186a6933e40885d743f8df6483701ab2ae1ccc1635408c061258d689875ca6048accecc6367d17c8339c2bf8cbddbb575f74fffaf3f9a@131.130.126.71:30303?discport=30303"
 fi
 
 docker run \
