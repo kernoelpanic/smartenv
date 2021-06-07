@@ -50,7 +50,7 @@ RUN cd /usr/local/bin \
   && wget -qO solc_5.4 https://github.com/ethereum/solidity/releases/download/v0.5.4/solc-static-linux \
 	&& wget -qO solc_7.4 https://github.com/ethereum/solidity/releases/download/v0.7.4/solc-static-linux \
 	&& wget -qO solc_8.4 https://github.com/ethereum/solidity/releases/download/v0.8.4/solc-static-linux \
-  && cp solc_5.4 solc \
+  && cp solc_8.4 solc \
   && chmod 755 solc*
 
 # get current geth version from here for debug tools etc (not mandatory):
