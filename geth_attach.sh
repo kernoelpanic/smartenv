@@ -28,7 +28,7 @@ if [ $DOCKER ]; then
   then
     echo "CONTAINERID = No container ID given run 'docker ps'"
     echo "Setting default:"
-    export CONTAINERID=$(docker ps -n1 | tail -n1 | cut -d' ' -f1)
+    export CONTAINERID=$(docker ps | grep smartenv | cut -d' ' -f1)
   elif [ ! -z "${2}" ];
   then
     export CONTAINERID="${2}"
