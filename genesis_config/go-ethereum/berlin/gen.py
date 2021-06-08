@@ -25,7 +25,7 @@ usr_balance=str(1_000_000*10**(18))
 std_addresses=""
 i=0
 for i in range(0,257):
-    std_addresses+="\n\"{:040d}\":{{\"balance\": \"0x1\"}},".format(i)
+    std_addresses+="\n\"{:040x}\":{{\"balance\": \"0x1\"}},".format(i)
 
 #address0="\n\"{}\":{{\"balance\": \"{}\"}},".format(address0,balance0)
 
