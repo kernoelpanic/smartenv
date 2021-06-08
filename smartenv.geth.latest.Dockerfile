@@ -74,7 +74,7 @@ RUN if test -d /smartenv/go-ethereum/.git; \
 ### Build geth version ###
 # if not already built 
 # Ref: https://github.com/ethereum/go-ethereum/wiki/Installation-Instructions-for-Ubuntu
-ARG VERSIONTAG=v1.9.23 
+ARG VERSIONTAG=v1.10.3 
 RUN if test -d /smartenv/go-ethereum/build/bin/geth; \
 	then echo "Already compiled"; \
     else export PATH=$PATH:/usr/local/go/bin \
