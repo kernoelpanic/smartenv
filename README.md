@@ -21,8 +21,7 @@ In **any case** you will need to satisfy the following requirements:
 
 Just read along to learn how to setup your environment for making the crash course or running the challenges. 
 
-1) Setup Linux System Environment
----------------------------------
+## 1) Setup Linux System Environment
 
 Most of the tools needed in the shell scripts should already be present 
 on a standard installation. The following system tools might additionally 
@@ -31,15 +30,13 @@ be required:
 $ apt-get install pwgen
 ```
 
-2) Install Docker CE 
---------------------
+## 2) Install Docker CE 
 
 Install docker according to your respective Linux distribution:
 
 https://docs.docker.com/engine/install/ubuntu/
 
-3) Build docker Images
-----------------------
+## 3) Build docker Images
 
 The next step is building the docker images for the containers that are running Ethereum nodes and our development environment. Note that the build and run shell scripts for the containers use the current user/group to map this directory into the running container later. So make sure the user who builds the containers is the same user that will run the containers later. Also 
 make sure that this user can run docker containers i.e., is in the group `docker`. 
@@ -80,8 +77,7 @@ to connect to. This will fetch the latest Ganache container from docker hub.
 $ bash docker_build_ganache.sh
 ```
 
-4) Setting up the Challenge Environment
-----------------------------------------
+## 4) Setting up the Challenge Environment
 
 If docker and the containers have been setup you are free to continue depending on what you want to do.
 
@@ -89,8 +85,7 @@ If docker and the containers have been setup you are free to continue depending 
 * If you are a **participant** you can continue to connect to the server/challenge environment setup by the tutor - lucky you :) 
 
 
-5) Connection to the Custom Testnet
------------------------------------
+## 5) Connection to the Custom Testnet
 
 To connect to our private/custom Ethereum PoA testnet you need our *genesis block* [genesis.json](/smartcode/genesis_config/genesis.json). Do not modify this file. This file has to be identical, otherwise you will not be able to connect. 
 
@@ -136,11 +131,10 @@ $ bash geth_attach.sh
 [...]
 ```
 
-6) Go through the Crash Course 
-------------------------------
+## 6) Go through the Crash Course 
 
-As a participant you can now go through the crash course on how to interact with geth/ganache 
-and the ethereum ecosystem. Therefore you have to start the docker container which provides
+As a participant you can now go through the crash course on how to interact with `geth` and `ganache`
+and the Ethereum ecosystem. Therefore you have to start the docker container which provides
 a development environment. This container fires up a jupyter notebook to which you can connect to from your browser. 
 
 ```bash
@@ -153,9 +147,15 @@ $ bash docker_run_smartcode.sh
      or http://127.0.0.1:8888/?token=789c9d57894c62f7e8e62e95d6ef1c778f3e98dbb6818e17
 ```
 
+To also work with the `ganache-cli` in the crash course, start this container as well:
 
-7) Solve the challenges
------------------------
+```bash
+$ bash docker_run_ganache.sh
+[...]
+Listening on 0.0.0.0:8545
+```
+
+## 7) Solve the challenges
 
 After having completed the crash course you can start working on the challenges. 
 A task description can be found [here](./general_info/README.md). 
