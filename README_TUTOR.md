@@ -39,48 +39,20 @@ $ RPCPORT=8544 bash geth_attach.sh
 "enode://4f6ddbb594825127b63186a6933e40885d743f8df6483701ab2ae1ccc1635408c061258d689875ca6048accecc6367d17c8339c2bf8cbddbb575f74fffaf3f9a@127.0.0.1:30303?discport=0"
 ```
 
-Remember to change the localhost IP (127.0.0.1) in this enode string to the actual IP of the remote server (or the docker container).  
-
-## Test client bob
-
-On a different machine you can now test if `bob` is able to connect to `alice`. 
-Currently the run script for bob is configured to connect to our server at the University. 
-
+Enter the node info as default in: 
 ```bash
-$ cp genesis_config/go-ethereum/berlin/genesis.json datadir/bob/genesis.json
-$ ntpdate ntp.ubuntu.com 
-$ PWFILE=./passwordfile DATADIR=./datadir/bob/ bash geth_account.sh new 
-$ bash geth_init_bob.sh
 $ vim geth_run_bob.sh # and enter the enode info
-$ bash geth_run_bob.sh
 ```
 
-If you run `bob` on the same physical machine as `alice` take care to use another port. 
+**Note:** Remember to change the localhost IP (127.0.0.1) in this enode string to the actual IP of the remote server (or the docker container).  
 
-```bash
-$ HPORT=30301 CPORT=30301 bash geth_init_bob.sh
-$ HPORT=30301 CPORT=30301 bash geth_run_bob.sh
-```
+## Try to connect to the server
 
-### Check if successfully connected
+Now you can try to connect to the server and execute the following steps from the main [README](../README.md):
 
-```bash
-$ bash geth_attach.sh
-> net.peerCount
-1
-> eth.blockNumber
-634
-> admin.peers
-[...]
-> admin.nodeInfo
-[...]
-```
+* ** 5) Connection to the Custom Testnet **
+* ** 6) Go through the Crash Course **
 
-### Check if smartenv is working
-
-```bash
-
-```
 
 ## Setup the challenges 
 

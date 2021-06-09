@@ -18,7 +18,7 @@ fi
 
 if [ -z "${2}" ] && [ -z "${VERSIONTAG+x}" ];
 then
-	export VERSIONTAG="v1.9.23"
+	export VERSIONTAG="v1.10.3"
 elif [ ! -z "${2}" ];
 then
 	export VERSIONTAG="${2}"

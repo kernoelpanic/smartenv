@@ -1,7 +1,10 @@
-# Setup for Participants  
+# Ethereum Smart Contract Challenges 
 
-So your are a participants in a course/lecture/training which uses this challenge 
-environment and challenges. 
+Task and setup description for Participants
+
+## Challenge Setup Summary for Participants  
+
+So your are a participants in a course/lecture/training which uses this challenge environment and challenges. 
 
 You should have received:
 
@@ -20,6 +23,8 @@ This is the file `enodes`.
 * The addresses of the personalized contracts to exploit in the challenges.
 This is the file `addresses`.
 
+**Note:** Check all your contracts if they have the right initial balance.
+There should be 3 contracts with `30` *EveCoins* each and one with `10` *EveCoins*.
 
 ## Task
 
@@ -44,30 +49,11 @@ So you might want to test your solutions first in a `ganache` test network as sh
 
 (In rare cases if you screwed up very badly and have a really good excuse we *might* bail you out, but then you have to write a _detailed_ report on how you solved all the challenges)
 
-In case of questions, or confessing painful mistakes contact please us. 
+In case of questions, or confessing painful mistakes please contact your tutor. 
 
 **Note:** 
 Just in case that murphy's law manifests itself, also keep track of an description (in markdown or as plain text file) of how you solved the challenges as a backup and as a reminder for you in case you have to "replay" your solutions on a newly initialized blockchain instance.
 You can keep the description very short and informal consisting mainly of commands and source code dumps. 
 
 
-## Connect to our custom testnet
-
-To connect to our private Ethereum PoA testnet you need our *genesis block* [genesis.json](/smartcode/genesis_config/genesis.json). 
-Do not modify this file. This file has to be identical, otherwise you will not be able to connect. 
-
-First make sure the system time of your computer is correct, this is relevant for our PoA setup. 
-Then initialize your client (bob), and run it which should automatically connect to our server.
-```bash
-$ ntpdate ntp.ubuntu.com
-$ bash geth_init_bob.sh
-```
-
-Now copy your personal key file into the folder `datadir/bob/keystore`
-```bash
-$ bash geth_run_bob.sh 
-```
-
-**Note:** Check all your contracts if they have the right initial balance.
-There should be 3 contracts with `30` *EveCoins* each and one with `10` *EveCoins*.
 
