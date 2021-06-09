@@ -10,20 +10,18 @@ including a smart contract crash course and exercises in form of challenges (wit
 
 The setup guide for this repository can be viewed from two perspectives:
 
-* As a **[tutor](./README_TUTOR.md)** who wants to setup the challenge environment for *participants*.
+* As a *tutor* who wants to setup the challenge environment for *participants*.
 
-* As a **[participant](./general_info/README.md)** who just wants to learn about smart contracts on Ethereum 
+* As a *participant* who just wants to learn about smart contracts on Ethereum 
 by solving the challenges in this repository, which have been setup by a tutor. 
 
-In **any case** you will need to satisfy the following requirements: 
-* Your favorite Linux distribution (tested on Ubuntu 20.04 Focal) with some system tools installed 
-* A working **docker ce** installation
-
+In **any case** you will need to satisfy the following requirements. 
 Just read along to learn how to setup your environment for making the crash course or running the challenges. 
 
 ## 1) Setup Linux System Environment
 
-Most of the tools needed in the shell scripts should already be present 
+Your favorite Linux distribution (tested on Ubuntu 20.04 Focal) with some system tools installed is 
+the basic requirement. Most of the tools needed in the shell scripts should already be present 
 on a standard installation. The following system tools might additionally 
 be required:
 ```bash
@@ -87,7 +85,7 @@ If docker and the containers have been setup you are free to continue depending 
 
 ## 5) Connection to the Custom Testnet
 
-To connect to our private/custom Ethereum PoA testnet you need our *genesis block* [genesis.json](/smartcode/genesis_config/genesis.json). Do not modify this file. This file has to be identical, otherwise you will not be able to connect. 
+To connect to our private/custom Ethereum PoA testnet you need our *genesis block* [genesis.json](/smartcode/genesis_config/go-ethereum/berlin/genesis.json). Do not modify this file. This file has to be identical, otherwise you will not be able to connect. 
 
 First make sure the system time of your computer is correct, this is important for our PoA setup. 
 Then initialize your client (bob), and run it which should automatically connect to our server.
