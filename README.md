@@ -146,6 +146,11 @@ a development environment. This container fires up a jupyter notebook to which y
 ```bash
 $ bash docker_run_smartcode.sh 
 [...]
+    To access the notebook, open this file in a browser:
+        file:///home/smartcode/.local/share/jupyter/runtime/nbserver-1-open.html
+    Or copy and paste one of these URLs:
+        http://smartcode:8888/?token=789c9d57894c62f7e8e62e95d6ef1c778f3e98dbb6818e17
+     or http://127.0.0.1:8888/?token=789c9d57894c62f7e8e62e95d6ef1c778f3e98dbb6818e17
 ```
 
 
