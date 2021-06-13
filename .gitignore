@@ -12,6 +12,8 @@
 /participants
 /solutions
 /logs
+# try and error data
+/gitignore
 .*.swp
 *.pyc
 .ipynb_checkpoints

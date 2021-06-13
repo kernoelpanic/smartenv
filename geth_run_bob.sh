@@ -68,6 +68,7 @@ docker run \
 	--http.api "eth,net,web3,personal,debug,admin,miner,txpool,clique" \
 	--http.corsdomain "*" \
 	--http.vhosts "*" \
+	--allow-insecure-unlock `# not good practise for production use` \
 	--ws \
 	--ws.port "${WSPORT}" \
 	--ws.addr "${WSIFC}" \
