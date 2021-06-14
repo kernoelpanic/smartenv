@@ -1,4 +1,5 @@
-pragma solidity ^0.5.12;
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.4;
 
 contract Visibility {
     uint256 constant public cpub_int = 0x10; //set at compile time
@@ -10,7 +11,7 @@ contract Visibility {
     event ichange(uint256 indexed v);
     event pchange(uint256 indexed v);
 
-    constructor() public payable {
+    constructor() payable {
         pub_int = 0x20;
         int_int = 0x30;
         priv_int = 0x40;

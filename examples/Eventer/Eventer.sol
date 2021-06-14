@@ -1,4 +1,5 @@
-pragma solidity ^0.5.12;
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.4;
 
 contract Eventer {
 
@@ -7,7 +8,7 @@ contract Eventer {
     event funcall2(address indexed caller,uint256 indexed value);
     event fallcall(address caller);
 
-    constructor() public {
+    constructor() {
         emit create(1);
     }
 
@@ -19,7 +20,7 @@ contract Eventer {
         emit funcall2(msg.sender,v);
     }
 
-    function() external payable{
+    receive() external payable{
         emit fallcall(msg.sender);
     }
 
