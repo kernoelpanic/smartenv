@@ -1,12 +1,12 @@
 # Rust setup und openethereum sources 
-/rustup-init.sh
-/openethereum
-# go-etheruem source
-/go-ethereum
+/client-src/
+# rustup-init.sh
+# openethereum
+# go-etheruem source: go-ethereum
 # datadirs for all clients 
 /datadir
 # all generated config and data
-/generated_config
+/setup/environment/generated_config
 # Data which should not be in the repo
 /passwordfile
 /participants
