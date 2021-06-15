@@ -79,8 +79,11 @@ help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
 
+.PHONY: build
+build: build-ganache-cli build-smartenv-web3py build-smartenv-geth ## Build all docker images
+
 .PHONY: all
-all: build network run ## Run compleate setup and start basic dev container environment
+all: build network run-smartenv-web3py ## Run compleate setup and start basic dev container environment
 
 .PHONY: build-ganache-cli
 build-ganache-cli: ## Download std. docker image for ganache-cli 

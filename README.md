@@ -75,6 +75,12 @@ to connect to. This will fetch the latest Ganache container from docker hub.
 $ make build-ganache-cli
 ```
 
+### Setup docker network
+To allow communication between the docker containers lets create a new bridged docker network. 
+```bash
+$ make network
+```
+
 ## 4) Setting up the Challenge Environment
 
 If docker and the containers have been setup you are free to continue depending on what you want to do.
