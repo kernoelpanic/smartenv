@@ -26,22 +26,23 @@ $ python gen.py
 
 Initialize `alice`
 ```bash
-$ cp genesis_config/go-ethereum/berlin/genesis.json datadir/alice/genesis.json
-$ bash geth_init_alice.sh 
+$ cp setup/environment/genesis_config/go-ethereum/berlin/genesis.json datadir/alice/genesis.json
+$ make init-smartenv-geth-alice 
 ```
 
 ## Run node and extract enode connection information
 
 ```bash
-$ bash geth_run_alice.sh
-$ RPCPORT=8544 bash geth_attach.sh
+$ make run-smartenv-geth-alice
+$ RPCPORT=8544 bash ./util/scripts/geth_attach.sh
 > admin.nodeInfo.enode
 "enode://4f6ddbb594825127b63186a6933e40885d743f8df6483701ab2ae1ccc1635408c061258d689875ca6048accecc6367d17c8339c2bf8cbddbb575f74fffaf3f9a@127.0.0.1:30303?discport=0"
 ```
 
-Enter the node info as default in: 
+Enter the node info as default in the `Makefile` and run bob as client: 
 ```bash
-$ vim geth_run_bob.sh # and enter the enode info
+$ make init-smartenv-geth-bob
+$ make run-smartenv-geth-bob 
 ```
 
 **Note:** Remember to change the localhost IP (127.0.0.1) in this enode string to the actual IP of the remote server (or the docker container).  
@@ -56,5 +57,5 @@ Now you can try to connect to the server and execute the following steps from th
 
 ## Setup the challenges 
 
-From here you can continue with the [setup.ipynb](./notebooks/challenges/setup.ipynb) 
+From here you can continue with the [setup.ipynb](./setup/challenges/setup.ipynb) 
 to setup the challenges for the participants. 
