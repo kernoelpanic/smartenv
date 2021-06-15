@@ -7,7 +7,7 @@ DOCKER_UID ?= $(shell id -u)
 DOCKER_GID ?= $(shell id -g)
 
 DOCKER_IMAGE_GETH=smartenv-geth
-GETH_VERSIONTAG=v1.10.3
+GETH_VERSIONTAG ?= v1.10.3
 DOCKER_IMAGE_WEB3PY=smartenv-web3py
 DOCKER_IMAGE_GANACHE=trufflesuite/ganache-cli
 
