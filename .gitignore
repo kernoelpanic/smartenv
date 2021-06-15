@@ -2,7 +2,7 @@
 /src-clients/
 rustup-init.sh
 /openethereum
-/go-etheruem
+/go-ethereum
 # datadirs for all clients 
 /datadir
 # all generated config and data

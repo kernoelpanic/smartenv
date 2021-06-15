@@ -14,6 +14,7 @@ DOCKER_IMAGE_GANACHE=trufflesuite/ganache-cli
 DOCKER_NETWORK_NAME=smartnet
 DOCKER_NETWORK_SUBNET=172.18.0.0/16
 DOCKER_IP_GETH_BOB=172.18.0.8
+DOCKER_IP_GETH_ALICE=172.18.0.8
 DOCKER_IP_WEB3PY=172.18.0.3
 DOCKER_IP_GANACHE=172.18.0.2
 
@@ -53,7 +54,8 @@ GETH_ALICE_NETID=1337
 GETH_ALICE_DATADIR=$(WORKDIR_CONTAINER)/datadir/alice
 GETH_ALICE_RPCPORT_INTERFACE=0.0.0.0
 GEHT_ALICE_WSPORT_INTERFACE=0.0.0.0
-PASSWORDFILE=$(SETUPDIR)/passwordfile
+GETH_ALICE_ADDRESS=0x33f4f5ac17d677e188ab8d43149717632f9960d8
+PASSWORDFILE=$(SETUPDIR)passwordfile
 
 .DEFAULT_GOAL := help
 
@@ -100,7 +102,8 @@ build-smartenv-web3py: ## Build docker image for smartenv-web3py according to do
 .PHONY: build-smartenv-geth
 build-smartenv-geth: ## Build docker image for smartenv-geth according to docker file
 	( \
-	  docker build --build-arg UID=$(DOCKER_UID) \
+	mkdir -p src-clients/go-ethereum; \
+	docker build --build-arg UID=$(DOCKER_UID) \
 	  			   --build-arg GID=$(DOCKER_GID) \
 				   --build-arg WORKDIR_CONTAINER=$(WORKDIR_CONTAINER) \
 				   --build-arg VERSIONTAG=$(GETH_VERSIONTAG) \
@@ -170,6 +173,7 @@ exec-smartenv-web3py: ## Execute shell in already running container: $ make exec
 .PHONY: init-smartenv-geth-bob
 init-smartenv-geth-bob: ## Initialized smartenv-geth datadir for client bob
 	( \
+	mkdir -p datadir/logs; \
   	docker run \
 		-p ${DOCKER_INTERFACE_GETH_BOB}:${HOST_PORT_GETH_BOB}:${DOCKER_PORT_GETH_BOB} \
 		-p 127.0.0.1:${HOST_RPCPORT_GETH_BOB}:${DOCKER_RPCPORT_GETH_BOB} \
@@ -188,9 +192,10 @@ init-smartenv-geth-bob: ## Initialized smartenv-geth datadir for client bob
 	)
 
 .PHONY: init-smartenv-geth-alice
-init-smartenv-alice-alice: ## Initialized smartenv-geth datadir for client alice
+init-smartenv-geth-alice: ## Initialized smartenv-geth datadir for client alice
 	( \
-  	docker run \
+	mkdir -p datadir/logs; \
+	docker run \
 		-p ${DOCKER_INTERFACE_GETH_ALICE}:${HOST_PORT_GETH_ALICE}:${DOCKER_PORT_GETH_ALICE} \
 		-p 127.0.0.1:${HOST_RPCPORT_GETH_ALICE}:${DOCKER_RPCPORT_GETH_ALICE} \
 		-p 127.0.0.1:${HOST_WSPORT_GETH_ALICE}:${DOCKER_WSPORT_GETH_ALICE} \
@@ -272,6 +277,7 @@ run-smartenv-geth-alice: ## Run smartenv-geth docker container for PoA node alic
 			--ws.origins "*" \
 			--ipcdisable \
 			--password $(PASSWORDFILE) \
+			--unlock $(GETH_ALICE_ADDRESS) \
 			--mine \
 			--nodiscover \
 			--metrics \
