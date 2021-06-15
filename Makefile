@@ -50,7 +50,7 @@ DOCKER_WSPORT_GETH_ALICE ?= 8546
 HOST_WSPORT_GETH_ALICE ?= 8546
 GETH_ALICE_NODEID=$(DOCKER_HOSTNAME_GETH_ALICE)
 GETH_ALICE_NETID=1337
-GETH_ALICE_DATADIR=$(WORKDIR_CONTAINER)/datadir/bob
+GETH_ALICE_DATADIR=$(WORKDIR_CONTAINER)/datadir/alice
 GETH_ALICE_RPCPORT_INTERFACE=0.0.0.0
 GEHT_ALICE_WSPORT_INTERFACE=0.0.0.0
 PASSWORDFILE=$(SETUPDIR)/passwordfile
@@ -187,6 +187,27 @@ init-smartenv-geth-bob: ## Initialized smartenv-geth datadir for client bob
 			2>&1 | tee "datadir/logs/$(GETH_BOB_NODEID)_$(shell date -Is)_run.log" \
 	)
 
+.PHONY: init-smartenv-geth-alice
+init-smartenv-alice-alice: ## Initialized smartenv-geth datadir for client alice
+	( \
+  	docker run \
+		-p ${DOCKER_INTERFACE_GETH_ALICE}:${HOST_PORT_GETH_ALICE}:${DOCKER_PORT_GETH_ALICE} \
+		-p 127.0.0.1:${HOST_RPCPORT_GETH_ALICE}:${DOCKER_RPCPORT_GETH_ALICE} \
+		-p 127.0.0.1:${HOST_WSPORT_GETH_ALICE}:${DOCKER_WSPORT_GETH_ALICE} \
+		--mount type=bind,source=$(WORKDIR_HOST),target=$(WORKDIR_CONTAINER) \
+		--net $(DOCKER_NETWORK_NAME) \
+		--hostname $(DOCKER_HOSTNAME_GETH_ALICE) \
+		--ip $(DOCKER_IP_GETH_ALICE) \
+		-it $(DOCKER_IMAGE_GETH):latest geth \
+		--identity "$(GETH_ALICE_NODEID)" \
+			--identity "$(GETH_ALICE_NODEID)" \
+			--networkid "$(GETH_ALICE_NETID)" \
+			--datadir "$(GETH_ALICE_DATADIR)" \
+			--verbosity 6 \
+			init $(SETUPDIR)genesis_config/go-ethereum/berlin/genesis.json \
+			2>&1 | tee "datadir/logs/$(GETH_ALICE_NODEID)_$(shell date -Is)_run.log" \
+	)
+
 .PHONY: run-smartenv-geth-bob
 run-smartenv-geth-bob: ## run smartenv-geth docker container for client bob
 	( \
@@ -282,7 +303,6 @@ exec-smartenv-geth: ## Run debug shell instead of command in smartenv-geth docke
 			--user $(DOCKER_UID) \
 			-it $${CONTAINER_ID} /bin/bash \
 	)
-
 
 
 list_ipynb: ## List jupyter notebooks in dir tree

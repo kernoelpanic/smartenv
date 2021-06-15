@@ -9,7 +9,7 @@ So your are a participants in a course/lecture/training which uses this challeng
 You should have received:
 
 * A **public/private key pair** (i.e., an external account). This is the file starting with `UTC--`.
-This account should be initialized with a balance of `16` *EveCoins* (our private fake ether),  which should be more than enough to solve all challenges.
+This account should be initialized with some *EveCoins* (private fake ether), which should be more than enough to solve all challenges.
 To use your pre-generated account just copy the file starting with `UTC--` into your `datadir/bob/keystore` folder in the data directory of your client.
 
 * The **password file** to this account. This is the file `passwordfile`.
@@ -23,25 +23,12 @@ This is the file `enodes`.
 * The addresses of the personalized contracts to exploit in the challenges.
 This is the file `addresses`.
 
-**Note:** Check all your contracts if they have the right initial balance.
-There should be 3 contracts with `30` *EveCoins* each and one with `10` *EveCoins*.
+**Note:** Check all your contracts if they have the according initial balance (see below).
 
 ## Task
 
 Your task is it to exploit the (personalized) challenges and use their  
-funds to increase the balance of **your** *external account*, which was initialized with `16` *EveCoins*.
-
-All your challenges can award you with `100` *EveCoins* max. (`30*3 + 10`), including your initial funds you can get more than `100` *EveCoins*.
-
-Grading is done by counting the *EveCoins* in your *external account*:
-1. More than 80 *EveCoins* on your external account 
-    - and at least 4 personalized contracts exploited such that they have 0 funds 
-2. More than 70 *EveCoins* on your external account
-    - and at least 3 personalized contracts exploited such that they have 0 funds 
-3. More than 60 *EveCoins* on your external account
-    - and at least 2 personalized contracts exploited such that they have 0 funds
-4. More than 50 *EveCoins* on your external account
-    - and at least 2 personalized contracts exploited such that they have 0 funds
+funds to increase the balance of **your** *external account*, which was initialized with some *EveCoins*. The more *EveCoins* you are able to get, the better.  
 
 Be careful not to "burn" your *EveCoins* due to mistakes or in risky pyramid schemes. 
 If your funds are gone they are gone!
@@ -54,6 +41,20 @@ In case of questions, or confessing painful mistakes please contact your tutor.
 **Note:** 
 Just in case that murphy's law manifests itself, also keep track of an description (in markdown or as plain text file) of how you solved the challenges as a backup and as a reminder for you in case you have to "replay" your solutions on a newly initialized blockchain instance.
 You can keep the description very short and informal consisting mainly of commands and source code dumps. 
+
+---
+
+All your challenges can award you with `100` *EveCoins* max. (`30*3 + 10`), including your initial funds you can get more than `100` *EveCoins*.
+
+Grading is done by counting the *EveCoins* in your *external account*:
+1. More than 80 *EveCoins* on your external account 
+    - and at least 4 personalized contracts exploited such that they have 0 funds 
+2. More than 70 *EveCoins* on your external account
+    - and at least 3 personalized contracts exploited such that they have 0 funds 
+3. More than 60 *EveCoins* on your external account
+    - and at least 2 personalized contracts exploited such that they have 0 funds
+4. More than 50 *EveCoins* on your external account
+    - and at least 2 personalized contracts exploited such that they have 0 funds
 
 
 
