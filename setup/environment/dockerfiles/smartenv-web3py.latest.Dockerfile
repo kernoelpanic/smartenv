@@ -6,14 +6,14 @@
 #FROM ubuntu:eoan
 FROM ubuntu:focal
 
-WORKDIR /smartcode
-
-COPY ./smartcode.python.requirements.txt /smartcode/requirements.txt
-
 # Add a user given as build argument
-ARG UNAME=smartcode
+ARG UNAME=smartenv
 ARG UID=1000
 ARG GID=1000
+ARG WORKDIR_CONTAINER=/smartenv
+ARG SETUPDIR=./setup/environment
+WORKDIR $WORKDIR_CONTAINER
+COPY "$SETUPDIR""$WORKDIR_CONTAINER"-web3py.requirements.txt "$WORKDIR_CONTAINER"/requirements.txt
 RUN groupadd -g $GID -o $UNAME
 RUN useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 
@@ -31,6 +31,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezon
 # python3 -m pip --version    
 RUN apt-get install -y python3 python3-dev \
   && apt-get install -y python3-pip \
+  && apt-get install -y python3-venv virtualenv \
   && cd /usr/local/bin \
   && ln -s /usr/bin/python3 python 
 
@@ -65,7 +66,7 @@ RUN mkdir -p /tmp/gethtools \
 
 # upgrade pip and install requirements for python3.7 which have been previously added to /smartcode
 RUN python3 -m pip install --upgrade pip
-RUN python3 -m pip install -r requirements.txt
+#RUN python3 -m pip install -r requirements.txt
 
 # port jupyter
 EXPOSE 8888
@@ -74,5 +75,6 @@ EXPOSE 8888
 USER $UNAME
 
 # Run jupyter per default:
-CMD ["jupyter", "notebook", "--ip", "0.0.0.0", "--port", "8888"]
+#CMD ["jupyter", "notebook", "--ip", "0.0.0.0", "--port", "8888"]
+ENTRYPOINT ["/smartenv/entrypoint.sh"]
 

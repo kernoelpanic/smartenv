@@ -6,20 +6,19 @@
 #FROM ubuntu:eoan
 FROM ubuntu:focal
 
-WORKDIR /smartenv
-
 # Add a user given as build argument
 ARG UNAME=smartenv
 ARG UID=1000
 ARG GID=1000
+ARG WORKDIR_CONTAINER=/smartenv
+ARG SETUPDIR=./setup/environment
+WORKDIR $WORKDIR_CONTAINER
 RUN groupadd -g $GID -o $UNAME
 RUN useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 
 ### copy files in build container ###
-#COPY --chown=$UID:$GID ./smartenv.python.requirements.txt /smartenv/requirements.txt
 # copy git repository if available
-RUN mkdir ./geth
-COPY --chown=$UID:$GID ./go-ethereum/ ./go-ethereum/
+COPY --chown=$UID:$GID ./src-clients/go-ethereum/ "$WORKDIR_CONTAINER"/src-clients/go-ethereum/
 
 ### update, upgrade and install basic tools ###
 RUN apt update 
@@ -66,24 +65,25 @@ RUN echo "GO VERSION:" && /usr/local/go/bin/go version
 ### Install geth sources ###
 # if not already available
 USER $UNAME
-RUN if test -d /smartenv/go-ethereum/.git; \
-	then echo "Repostory already available"; \
-    else git clone --recursive https://github.com/ethereum/go-ethereum ; \
+RUN if test -d "$WORKDIR_CONTAINER"/src-clients/go-ethereum/.git; \
+	  then echo "Repostory already available"; \
+    else \
+      cd "$WORKDIR_CONTAINER"/src-clients/ && git clone --recursive https://github.com/ethereum/go-ethereum ; \
     fi
 
 ### Build geth version ###
 # if not already built 
 # Ref: https://github.com/ethereum/go-ethereum/wiki/Installation-Instructions-for-Ubuntu
 ARG VERSIONTAG=v1.10.3 
-RUN if test -d /smartenv/go-ethereum/build/bin/geth; \
+RUN if test -d "$WORKDIR_CONTAINER"/src-clients/go-ethereum/build/bin/geth; \
 	then echo "Already compiled"; \
     else export PATH=$PATH:/usr/local/go/bin \
-	&& cd go-ethereum \
-        && git checkout $GETHVERSIONTAG \
+	&& cd "$WORKDIR_CONTAINER"/src-clients/go-ethereum \
+      && git checkout $GETHVERSIONTAG \
 	&& make all ; \
     fi
 USER root
-RUN cp /smartenv/go-ethereum/build/bin/geth /usr/local/bin
+RUN cp "$WORKDIR_CONTAINER"/src-clients/go-ethereum/build/bin/geth /usr/local/bin
 
 ### port ###
 # Do not expose any port by default

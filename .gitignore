@@ -1,8 +1,8 @@
 # Rust setup und openethereum sources 
-/client-src/
-# rustup-init.sh
-# openethereum
-# go-etheruem source: go-ethereum
+/src-clients/
+rustup-init.sh
+/openethereum
+/go-etheruem
 # datadirs for all clients 
 /datadir
 # all generated config and data
@@ -14,6 +14,7 @@
 /logs
 # try and error data
 /gitignore
+/venv
 .*.swp
 *.pyc
 .ipynb_checkpoints
