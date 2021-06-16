@@ -1,8 +1,10 @@
 #!/bin/bash
 #
 #
-# Run with docker:
+# Run with docker from root of repository:
 # $ PWFILE=./passwordfile DATADIR=./datadir/accountmgt/ bash geth_account.sh new
+
+set -e
 
 if [ -z "${PWFILE+x}" ];
 then
@@ -22,10 +24,12 @@ fi
 if [ -z "${DATADIR+x}" ];
 then
         echo "DATADIR environment variable missing"
-	echo "No Datadir given e.g., '/datadir/alice/'"
+	echo "No Datadir given e.g., './datadir/bob'"
 	exit 2
 fi
 echo "DATADIR = ${DATADIR}"
+
+mkdir -p ${DATADIR}
 
 # run container without network
 # just to generate and manage keys

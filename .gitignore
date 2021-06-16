@@ -7,6 +7,7 @@ rustup-init.sh
 /datadir
 # all generated config and data
 /setup/environment/generated_config
+/setup/generated_config
 # Data which should not be in the repo
 /passwordfile
 /participants
