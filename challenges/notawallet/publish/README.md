@@ -1,7 +1,6 @@
 # Challenge NotAWallet
 
-This is a Wallet Contract and its source code that you have stumbled upon
-Can you spot what is wrong with it?
+This is a Wallet Contract and its source code that you have stumbled upon. Can you spot what is wrong with it?
 
 # Task
 

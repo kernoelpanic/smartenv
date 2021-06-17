@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 /**
 
 Look Mom, I coded my first wallet contract to learn solidity!
@@ -5,15 +6,15 @@ It even supports multiple owners!
 
 **/
 
-pragma solidity ^0.5.4;
+pragma solidity ^0.8.4;
 
 contract NotAWallet{
 
-		address public owner;
+	address public owner;
     address public student;
     mapping (address => bool) owners;
    
-    constructor(address _student) public payable{
+    constructor(address _student) payable{
         student = _student;
         owner = msg.sender;
     }
@@ -35,7 +36,7 @@ contract NotAWallet{
     function withdraw(uint256 amount) public {
         // only owners can withdraw funds
         require(owners[msg.sender] == true);
-        msg.sender.transfer(amount);
+        payable(msg.sender).transfer(amount);
     }
 
 		function isOwner(address testowner) public view returns (bool) {

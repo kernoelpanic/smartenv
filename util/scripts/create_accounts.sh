@@ -39,4 +39,4 @@ do
 	bash ./util/scripts/geth_account.sh new
 done
 
-cp -r ${DATADIR}/keystore ${TARGETDIR}
+cp -r "${DATADIR}/keystore" ${TARGETDIR}
