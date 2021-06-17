@@ -1,5 +1,5 @@
-
-pragma solidity ^0.5.4;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
 
 contract EDao {
     address payable public student; 
@@ -23,7 +23,7 @@ contract EDao {
     mapping(address => Investor) investors;
     mapping(address => Fund) funds;
 
-    constructor(address payable _student) public payable {
+    constructor(address payable _student) payable {
         // Set the deployer as one of the investors who initially funded this contract
         investors[msg.sender] = Investor({canFund:true, canAddInvestor:true});
 				
@@ -53,7 +53,7 @@ contract EDao {
     function withdraw(address payable addr,uint256 amount) public returns (bool) {
         Fund storage f = funds[addr];
         if (f.amount >= amount && amount <= address(this).balance) {
-            (bool success, ) = f.payoutAddr.call.value(amount)("");
+            (bool success, ) = f.payoutAddr.call{value:amount}("");
             if (success) {
                 f.amount = f.amount - amount;
                 return true;
@@ -64,9 +64,9 @@ contract EDao {
         return false;
     }    
 
-		function getStudent() public view returns (address) {
-				return student;
-		}
+	function getStudent() public view returns (address) {
+		return student;
+	}
 
     function addInvestor(address payable investorAddr,bool canAdd) public {
         Investor memory b = investors[msg.sender];
