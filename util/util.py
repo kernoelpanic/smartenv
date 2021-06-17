@@ -152,14 +152,15 @@ def get_contract_instance(
         concise=False,
         patch_api=False,
         concise_events=False,
-        path=None):
+        path=None,
+        compiler="solc"):
     """ get contract instance from address and abi """
 
     if cabi is None and path is None:
         print("No ABI or path to source given")
         return None
     elif path is not None:
-        cabi=compile_contract_with_libs("solc",path)["abi"]
+        cabi=compile_contract_with_libs(compiler,path)["abi"]
 
     if concise:
         instance = w3.eth.contract(
