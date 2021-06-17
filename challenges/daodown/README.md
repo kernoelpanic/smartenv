@@ -1,6 +1,6 @@
-# Not a Wallet Challenge
+# Dao Down Challange
 
-A simple wallet contract which is not that secure. 
+DAO hack challenge
 
 ## Setup
 
@@ -14,6 +14,5 @@ See setup notebook:
 See Soltuon git repository: 
 
 * https://github.com/kernoelpanic/smartenv_solutions
-
 
 

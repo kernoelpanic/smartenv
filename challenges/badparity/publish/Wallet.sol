@@ -1,4 +1,5 @@
-pragma solidity ^0.5.4;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
 
 contract Wallet {
     address walletLibrary;
@@ -8,7 +9,7 @@ contract Wallet {
     event LogValue(uint256 exitcode,uint256 amount);
 
     // constructor, called once when this contract is created 
-    constructor(address payable _student, address lib) public payable {
+    constructor(address payable _student, address lib) payable {
         student = _student;  
         walletLibrary = lib; // hardcode lib address at deploy time
         // init the owner with the respective lib contract
@@ -43,7 +44,7 @@ contract Wallet {
     }
 
     // fallback function gets called if no other function matches call
-    function () external payable {
+    fallback() external payable {
         emit LogValue(301,msg.value);
         require( tx.origin == student ); 
         walletLibrary.delegatecall(msg.data);

@@ -1,4 +1,5 @@
-pragma solidity ^0.5.4;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
 
 contract WalletLibrary {
      address walletLibrary; 
@@ -32,7 +33,7 @@ contract WalletLibrary {
          }
      }
     
-     function () external payable {
+     fallback() external payable {
          emit LogValue(200,msg.value);
      }
 }
