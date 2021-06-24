@@ -32,7 +32,12 @@ $ apt-get install make pwgen
 
 Install docker according to your respective Linux distribution:
 
-https://docs.docker.com/engine/install/ubuntu/
+* https://docs.docker.com/engine/install/ubuntu/
+
+Consider also to run docker as user and not as root like so:
+
+* https://docs.docker.com/engine/install/linux-postinstall/
+
 
 ## 3) Build docker Images
 
@@ -51,6 +56,15 @@ The docker file ([smartenv-geth.latest.Dockerfile](./setup/environment/dockerfil
 
 ```bash
 $ make build-smartenv-geth GETH_VERSIONTAG=v1.10.3
+```
+
+If you are running your `docker` commands as root. Please specify the `UID` and `GID` of 
+the user running in the container manually. Otherwise the `UID` and `GID` of the current user is used in the container as well. 
+Ideally you specify the `UID` and `GID` of the user with which you have checked out this repository and plan to work in this environment. Usually this will be `UID=GID=1000` 
+
+
+```bash
+$ DOCKER_UID=1000 DOCKER_GID=1000 make build-smartenv-geth GETH_VERSIONTAG=v1.10.3
 ```
 
 If you check out the docker file, you see the detailed step-by-step guide for setting up a build environment for `geth` and compile the `go-ethereum` client from scratch. 
