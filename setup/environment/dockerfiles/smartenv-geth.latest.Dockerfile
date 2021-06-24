@@ -31,7 +31,7 @@ RUN apt install -y vim iputils-ping netcat iproute2 sudo
 ### Install dependencies for geth build ###
 # to avoid prompt for tzdata
 ENV TZ=Europe/Berlin
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezon
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt install -y build-essential make 
 
 ### Install dependencies for geth devtools build ###

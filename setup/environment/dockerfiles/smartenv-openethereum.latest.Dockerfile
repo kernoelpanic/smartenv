@@ -34,7 +34,7 @@ RUN apt-get install -y vim iputils-ping netcat iproute2 sudo
 # Install dependencies for build
 # to avoid prompt for tzdata
 ENV TZ=Europe/Berlin
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezon
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get install -y build-essential cmake libudev-dev
 
 # Install rust
