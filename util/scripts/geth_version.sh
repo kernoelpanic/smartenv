@@ -9,7 +9,7 @@
 # just to generate and manage keys
 docker run \
 	--mount type=bind,source=$(pwd),target=/smartenv \
-	-it smartenv:latest \
+	-it smartenv-geth:latest \
 		geth \
 		--nodiscover \
 		--maxpeers 0 \
