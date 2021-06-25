@@ -7,6 +7,9 @@ py-solc
 leveldb
 ethereum # pyethereum 
 
+## for bitcoin
+bitcoinlib
+
 ## other required python packages ##
 py-ecc
 pytest

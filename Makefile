@@ -57,6 +57,17 @@ GEHT_ALICE_WSPORT_INTERFACE=0.0.0.0
 GETH_ALICE_ADDRESS=0x33f4f5ac17d677e188ab8d43149717632f9960d8
 PASSWORDFILE=$(SETUPDIR)passwordfile
 
+
+BTC_DATADIR_HOST=$(WORKDIR_HOST)/data/bitcoin/
+BTC_DATADIR_TESTNET=$(BTC_DATADIR_HOST)testnet/
+DOCKER_IMAGE_BTC_TESTNET=ruimarinho/bitcoin-core
+BTC_TESTNET_RPCPORT_INTERFACE=0.0.0.0
+HOST_RPCPORT_BTC_TESTNET ?= 18332
+DOCKER_RPCPORT_BTC_TESTNET ?= 18332
+HOST_PORT_BTC_TESTNET ?= 18333
+DOCKER_PORT_BTC_TESTNET ?= 18333
+
+
 .DEFAULT_GOAL := help
 
 define PRINT_HELP_PYSCRIPT
@@ -311,6 +322,26 @@ exec-smartenv-geth: ## Run debug shell instead of command in smartenv-geth docke
 		docker exec \
 			--user $(DOCKER_UID) \
 			-it $${CONTAINER_ID} /bin/bash \
+	)
+
+
+.PHONY: run-smartenv-bitcoin-testnet
+run-smartenv-bitcoin-testnet: ## Run bitcoin testnet in docker container connected to smartnet 
+#loads bitcoin.conf from $(SETUPDIR)bitcoin/testnet/
+	( \
+    cp --update $(SETUPDIR)bitcoin/testnet/bitcoin.conf $(BTC_DATADIR_TESTNET)bitcoin.conf; \
+  	docker run \
+        --rm -it \
+        --name bitcoin-testnet \
+        --net $(DOCKER_NETWORK_NAME) \
+        -p 127.0.0.1:${HOST_RPCPORT_BTC_TESTNET}:${DOCKER_RPCPORT_BTC_TESTNET} \
+        -p 127.0.0.1:${HOST_PORT_BTC_TESTNET}:${DOCKER_PORT_BTC_TESTNET} \
+        -v $(BTC_DATADIR_TESTNET):/home/bitcoin/.bitcoin \
+    $(DOCKER_IMAGE_BTC_TESTNET):latest \
+        -printtoconsole \
+        -testnet=1 \
+        -rpcallowip=$(DOCKER_NETWORK_SUBNET) \
+        -rpcbind=$(BTC_TESTNET_RPCPORT_INTERFACE) \
 	)
 
 
