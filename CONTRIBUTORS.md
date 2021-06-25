@@ -10,6 +10,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/NStifter"><img src="https://avatars.githubusercontent.com/u/16758029?v=4" width="100px;" alt=""/><br /><sub><b>Nicholas Stifter</b></sub></a></td>
     <td align="center"><a href="https://github.com/PhilippSchindler"><img src="https://avatars.githubusercontent.com/u/4274886?v=4" width="100px;" alt=""/><br /><sub><b>Philipp Schindler</b></sub></a></td>
     <td align="center"><a href="https://github.com/andreaskern"><img src="https://avatars.githubusercontent.com/u/739277?v=4" width="100px;" alt=""/><br /><sub><b>andreaskern</b></sub></a></td>
+    <td align="center"><a href="https://github.com/walidus"><img src="https://avatars.githubusercontent.com/u/4364978?v=4" width="100px;" alt=""/><br /><sub><b>walidus</b></sub></a></td>
   </tr>
 </table>
 
