@@ -118,15 +118,20 @@ $ make init-smartenv-geth-bob
 Now copy your personal key file into the folder `datadir/bob/keystore` or create a new one
 ```bash
 $ mkkdir -p ./datadir/bob/keystore && cp UTC--2021-06-07T13-09-53.517129020Z--33.... ./datadir/bob/keystore/ # copy existing account
-$ PWFILE=./passwordfile DATADIR=./datadir/bob/ bash ./util/scripts/geth_account.sh new # create a new account
+$ PWFILE=./passwordfile DATADIR=./datadir/bob/ bash ./util/scripts/geth_account.sh new # or reate a new account
 $ make run-smartenv-geth-bob
 ```
 
-If you run `bob` on the same physical machine as `alice` (or the ports are already used by other software) take care to use another port. The HPORT is the port on the host machine, that is mapped/forwarded to the docker container port CPORT i.e., the client machine.  
+If you run `bob` on the same physical machine as `alice` (or the ports are already used by other software) take care to use another port. 
+This can be done by providing the appropiate environment variable on the command line before calling the `make run-..` command.  
 
 ```bash
-$ HPORT=30301 CPORT=30301 bash geth_init_bob.sh
-$ HPORT=30301 CPORT=30301 bash geth_run_bob.sh
+DOCKER_PORT_GETH_BOB ?= 30303
+HOST_PORT_GETH_BOB ?= 30303
+DOCKER_RPCPORT_GETH_BOB ?= 8545
+HOST_RPCPORT_GETH_BOB ?= 8545
+DOCKER_WSPORT_GETH_BOB ?= 8546
+HOST_WSPORT_GETH_BOB ?= 8546
 ```
 
 You can test now if `bob` is able to connect to `alice`. 
