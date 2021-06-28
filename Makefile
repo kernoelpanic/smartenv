@@ -329,6 +329,7 @@ exec-smartenv-geth: ## Run debug shell instead of command in smartenv-geth docke
 run-smartenv-bitcoin-testnet: ## Run bitcoin testnet in docker container connected to smartnet 
 #loads bitcoin.conf from $(SETUPDIR)bitcoin/testnet/
 	( \
+	mkdir -p $(BTC_DATADIR_TESTNET); \
     cp --update $(SETUPDIR)bitcoin/testnet/bitcoin.conf $(BTC_DATADIR_TESTNET)bitcoin.conf; \
   	docker run \
         --rm -it \
