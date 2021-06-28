@@ -14,6 +14,13 @@ Path of the secret key file: datadir/alice/keystore/UTC--2020-11-12T09-53-29.399
 [...]
 ```
 
+### If you already have an account
+If you already have an account/keyfile you want to use just copy it over and create the according folder structure:
+```bash
+$ mkdir -p ./datadir/alice/
+$ cp -r $FROM_SOMEWHERE/keystore ./datadir/alice/
+```
+
 ## Parameterize node
 
 Based on the generated key files, replace the addresses of the PoA node in the `gen.py`.
@@ -36,7 +43,12 @@ $ make init-smartenv-geth-alice
 $ make run-smartenv-geth-alice
 $ RPCPORT=8544 bash ./util/scripts/geth_attach.sh
 > admin.nodeInfo.enode
-"enode://4f6ddbb594825127b63186a6933e40885d743f8df6483701ab2ae1ccc1635408c061258d689875ca6048accecc6367d17c8339c2bf8cbddbb575f74fffaf3f9a@127.0.0.1:30303?discport=0"
+"enode://9d3297cebb326554af6e6d3146c19856b42a4e97f5a361bd51d8cdf66881ddc65ca54ba4082a2bcba236f1a18082ad3315fb2f5065c617dc7bead1d0c07b6f61@127.0.0.1:30303?discport=0"
+```
+
+Remember to change the IP: 
+```bash
+enode://9d3297cebb326554af6e6d3146c19856b42a4e97f5a361bd51d8cdf66881ddc65ca54ba4082a2bcba236f1a18082ad3315fb2f5065c617dc7bead1d0c07b6f61@131.130.126.71:30303?discport=30303
 ```
 
 Enter the node info as default in the `Makefile` and run bob as client: 
