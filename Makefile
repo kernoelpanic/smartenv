@@ -109,6 +109,7 @@ build-smartenv-web3py: ## Build docker image for smartenv-web3py according to do
 	  			   --build-arg GID=$(DOCKER_GID) \
 				   --build-arg WORKDIR_CONTAINER=$(WORKDIR_CONTAINER) \
 				   --build-arg SETUPDIR=$(SETUPDIR) \
+				   --no-cache \
 				   -f $(SETUPDIR)/dockerfiles/$(DOCKER_IMAGE_WEB3PY).latest.Dockerfile \
 				   -t $(DOCKER_IMAGE_WEB3PY):latest . \
 	)
@@ -121,6 +122,7 @@ build-smartenv-geth: ## Build docker image for smartenv-geth according to docker
 	  			   --build-arg GID=$(DOCKER_GID) \
 				   --build-arg WORKDIR_CONTAINER=$(WORKDIR_CONTAINER) \
 				   --build-arg VERSIONTAG=$(GETH_VERSIONTAG) \
+				   --no-cache \
 				   -f $(SETUPDIR)/dockerfiles/$(DOCKER_IMAGE_GETH).latest.Dockerfile \
 				   -t $(DOCKER_IMAGE_GETH):latest . \
 	)
