@@ -79,7 +79,7 @@ RUN if test -d "$WORKDIR_CONTAINER"/src-clients/go-ethereum/build/bin/geth; \
 	then echo "Already compiled"; \
     else export PATH=$PATH:/usr/local/go/bin \
 	&& cd "$WORKDIR_CONTAINER"/src-clients/go-ethereum \
-      && git checkout $GETHVERSIONTAG \
+  && git checkout $VERSIONTAG \
 	&& make all ; \
     fi
 USER root
