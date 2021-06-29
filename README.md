@@ -115,10 +115,17 @@ $ ntpdate ntp.ubuntu.com
 $ make init-smartenv-geth-bob
 ```
 
-Now copy your personal key file into the folder `datadir/bob/keystore` or create a new one
+Now copy your personal key file into the folder `datadir/bob/keystore` and use the `passwordfile` you recieved via e-mail.
 ```bash
 $ mkdir -p ./datadir/bob/keystore && cp UTC--2021-06-07T13-09-53.517129020Z--33.... ./datadir/bob/keystore/ # copy existing account
+```
+Alternatively, you can create a new one, using your own `passwordfile` like so: 
+```bash
 $ PWFILE=./passwordfile DATADIR=./datadir/bob/ bash ./util/scripts/geth_account.sh new # or reate a new account
+```
+
+After you have a personal public/private key pair you can run your client node:
+```bash
 $ make run-smartenv-geth-bob
 ```
 
