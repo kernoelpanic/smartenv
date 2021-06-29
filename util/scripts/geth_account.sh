@@ -18,7 +18,9 @@ if [ -f "${PWFILE}" ];
 then
 	echo "using stored password ... "	
 else
-	pwgen -s -B 32 1 > ${PWFILE}
+	#pwgen -s -B 32 1 > ${PWFILE}
+	echo "ERROR: No passwordfile found!"
+	exit 1
 fi
 
 if [ -z "${DATADIR+x}" ];
