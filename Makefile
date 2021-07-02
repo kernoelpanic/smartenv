@@ -365,6 +365,15 @@ html: ## Export jupyter notebooks to .html files in dir tree
 			-it $${CONTAINER_ID} /bin/bash -c "find ./ -iname "*.ipynb" | grep -v "_checkpoints" | | grep -v "./venv/" | xargs -I{} jupyter nbconvert --to html {}" \
 	)
 
+.PHONY: html
+slides: ## Export jupyter notebooks to .html files in dir tree
+	( \
+		export CONTAINER_ID=$$(docker ps | grep $(DOCKER_IMAGE_WEB3PY) | cut -d" " -f1); \
+		docker exec \
+			--user $(DOCKER_UID) \
+			-it $${CONTAINER_ID} /bin/bash -c "find ./course -iname "*.ipynb" | grep -v "_checkpoints" | | grep -v "./venv/" | xargs -I{} jupyter nbconvert --to slides {}" \
+	)
+
 #jupyter nbconvert --to html $(HTMLPATH)*.ipynb
 
 # Initialize virtual environment in local folder
