@@ -5,6 +5,7 @@ rustup-init.sh
 /go-ethereum
 # datadirs for all clients 
 /datadir
+/data
 # all generated config and data
 /setup/environment/generated_config
 /setup/generated_config

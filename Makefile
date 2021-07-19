@@ -10,12 +10,14 @@ DOCKER_IMAGE_GETH=smartenv-geth
 GETH_VERSIONTAG ?= v1.10.3
 DOCKER_IMAGE_WEB3PY=smartenv-web3py
 DOCKER_IMAGE_GANACHE=trufflesuite/ganache-cli
+DOCKER_IMAGE_WEB3JS=smartenv-web3js
 
 DOCKER_NETWORK_NAME=smartnet
 DOCKER_NETWORK_SUBNET=172.18.0.0/16
 DOCKER_IP_GETH_BOB=172.18.0.8
 DOCKER_IP_GETH_ALICE=172.18.0.8
 DOCKER_IP_WEB3PY=172.18.0.3
+DOCKER_IP_WEB3JS=172.18.0.4
 DOCKER_IP_GANACHE=172.18.0.2
 
 DOCKER_HOSTNAME_GANACHE=ganache
@@ -25,6 +27,10 @@ HOST_PORT_GANACHE ?= 8540
 DOCKER_HOSTNAME_WEB3PY=web3py
 DOCKER_PORT_WEB3PY ?= 8888
 HOST_PORT_WEB3PY ?= 8888
+
+DOCKER_HOSTNAME_WEB3JS=web3js
+DOCKER_PORT_WEB3JS ?= 8887
+HOST_PORT_WEB3JS ?= 8887
 
 DOCKER_HOSTNAME_GETH_BOB ?= bob
 DOCKER_INTERFACE_GETH_BOB ?= 127.0.0.1
@@ -114,6 +120,18 @@ build-smartenv-web3py: ## Build docker image for smartenv-web3py according to do
 				   -t $(DOCKER_IMAGE_WEB3PY):latest . \
 	)
 
+.PHONY: build-smartenv-web3js
+build-smartenv-web3js: ## Build docker image for smartenv-web3js according to docker file
+	( \
+	  docker build --build-arg UID=$(DOCKER_UID) \
+	  			   --build-arg GID=$(DOCKER_GID) \
+				   --build-arg WORKDIR_CONTAINER=$(WORKDIR_CONTAINER) \
+				   --build-arg SETUPDIR=$(SETUPDIR) \
+				   --no-cache \
+				   -f $(SETUPDIR)/dockerfiles/$(DOCKER_IMAGE_WEB3JS).latest.Dockerfile \
+				   -t $(DOCKER_IMAGE_WEB3JS):latest . \
+	)	
+
 .PHONY: build-smartenv-geth
 build-smartenv-geth: ## Build docker image for smartenv-geth according to docker file
 	( \
@@ -163,6 +181,19 @@ run-smartenv-web3py: ## Run smartenv-web3py docker container
   		-it $(DOCKER_IMAGE_WEB3PY):latest \
 	)
 
+.PHONY: run-smartenv-web3js
+run-smartenv-web3js: ## Run smartenv-web3py docker container
+	( \
+  	docker run \
+	    -p 127.0.0.1:$(HOST_PORT_WEB3JS):$(DOCKER_PORT_WEB3JS) \
+		-e CONTAINER_PORT=$(DOCKER_PORT_WEB3JS) \
+		--mount type=bind,source=$(WORKDIR_HOST),target=$(WORKDIR_CONTAINER) \
+  		--net $(DOCKER_NETWORK_NAME) \
+  		--hostname $(DOCKER_HOSTNAME_WEB3JS) \
+  		--ip $(DOCKER_IP_WEB3JS) \
+  		-it $(DOCKER_IMAGE_WEB3JS):latest \
+	)
+
 .PHONY: debug-smartenv-web3py
 debug-smartenv-web3py: ## Run debug shell instead of command in smartenv-web3py docker container: $ HOST_PORT_WEB3PY=8889 DOCKER_PORT_WEB3PY=8888 make debug-smartenv-web3py DOCKER_UID=0
 	( \
@@ -181,6 +212,15 @@ debug-smartenv-web3py: ## Run debug shell instead of command in smartenv-web3py 
 exec-smartenv-web3py: ## Execute shell in already running container: $ make exec DOCKER_UID=0
 	( \
 		export CONTAINER_ID=$$(docker ps | grep $(DOCKER_IMAGE_WEB3PY) | cut -d" " -f1); \
+		docker exec \
+			--user $(DOCKER_UID) \
+			-it $${CONTAINER_ID} /bin/bash \
+	)
+
+.PHONY: exec-smartenv-web3js
+exec-smartenv-web3js: ## Execute shell in already running container: $ make exec DOCKER_UID=0
+	( \
+		export CONTAINER_ID=$$(docker ps | grep $(DOCKER_IMAGE_WEB3JS) | cut -d" " -f1); \
 		docker exec \
 			--user $(DOCKER_UID) \
 			-it $${CONTAINER_ID} /bin/bash \
