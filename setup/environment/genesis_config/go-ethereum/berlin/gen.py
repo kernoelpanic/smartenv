@@ -4,7 +4,8 @@ import fileinput
 import shutil
 import os
 
-chainId="1337"
+#chainId="1337"
+chainId="20211102"
 
 # clique:
 period="16"
@@ -12,12 +13,12 @@ epoch="30000"
 
 gasLimit="\"15000000\""
 
-address0="33f4f5ac17d677e188ab8d43149717632f9960d8"
+address0="D6abfD59de4B5c832F74d8f0AB9FD844E0aD0255"
 balance0=str(1_000_000*10**(18))
 
-address_list=[ "a1273F73C607Bd0af4D2916f4C9e6A550581dCA6",
-                "9a74797788982C84cC9d6B8D9f2E5Cf1f64c4306",
-                "122bb7246883Af6C45FF3C3Ec7AEaf0630e956C8" ]
+address_list=[ "b1Cef50494b3C82Aa199DCedD212D333C9265697",
+                "22f9752D7933D89bE858e9a6Fbd0f6CAE2aDAAE0",
+                "1DE8Ea7FD0fE6E656964a68665DAe4Cc1eB630F1" ]
 usr_balance=str(1_000_000*10**(18))
 
 # addresses to prevent bugs because auf built in contracts 
