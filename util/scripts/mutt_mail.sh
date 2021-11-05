@@ -8,14 +8,16 @@ tail -n+2 ${PARTICIPATNS_CSV} |  while read id to cc att kid;
 do  
     echo "Preparing mail for ${id}: ${to}";
     export IFS=" "
-    export SUBJECT="Credentials for DLEAD qualification seminar challenge and quiz environment"; 
+    export SUBJECT="Credentials for Advanced Topics in Internet Computing & Software Technologies"; 
     export BODY="
 Hello,
 
 The attachment of this mail contains your individual public/private key pair for the challenge
-environment and some meta information, as well as the login token required for registration on the quiz homepage. 
+environment and some meta information, for 2021W 052520-1 Advanced Topics in Internet Computing & Software Technologies 
 
-The registration will open on day 1 of the seminar. 
+Further information will be given in the next lecture, and in moodle:
+
+https://moodle.univie.ac.at/course/view.php?id=259881
 
 Kind regards    
 "; 
