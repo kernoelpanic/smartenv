@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+pragma solidity ^0.7.4;
+// totally up to date!!! ;)
 
 contract SatoshiFailDice{
     // Hint: use web3.toInt() when converting bytes to soldity uint - else values may not match
