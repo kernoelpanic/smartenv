@@ -159,6 +159,7 @@ $ bash geth_attach.sh
 [...]
 > admin.nodeInfo
 [...]
+> admin.addPeer("enode://82ab770c3374e2f8083ce2df1fdc502998d14aa6fac6d39251d738bedd5074ec41dac345eb5927e1711ee5d2af38a7c78e817be4d64495cc71a72c4b25d785b8@131.130.126.71:30303");
 ```
 
 ## 6) Go through the Crash Course 
