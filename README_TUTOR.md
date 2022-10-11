@@ -45,7 +45,7 @@ which should be unlocked for the PoA node. Then you can run the PoA node alice.
 
 ```bash
 $ make run-smartenv-geth-alice
-$ RPCPORT=8544 bash ./util/scripts/geth_attach.sh
+$ RPCPORT=8545 bash ./util/scripts/geth_attach.sh
 > admin.nodeInfo.enode
 "enode://9d3297cebb326554af6e6d3146c19856b42a4e97f5a361bd51d8cdf66881ddc65ca54ba4082a2bcba236f1a18082ad3315fb2f5065c617dc7bead1d0c07b6f61@127.0.0.1:30303?discport=0"
 ```
@@ -70,8 +70,13 @@ Now you can try to connect to the server and execute the following steps from th
 * ** 5) Connection to the Custom Testnet **
 * ** 6) Go through the Crash Course **
 
-
 ## Setup the challenges 
 
 From here you can continue with the [setup.ipynb](./setup/challenges/setup.ipynb) 
 to setup the challenges for the participants. 
+Just start the web3py container and navigate to the setup.
+
+```
+$ make run-smartenv-web3py 
+```
+
