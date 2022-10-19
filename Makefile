@@ -115,6 +115,7 @@ build-smartenv-web3py: ## Build docker image for smartenv-web3py according to do
 	  			   --build-arg GID=$(DOCKER_GID) \
 				   --build-arg WORKDIR_CONTAINER=$(WORKDIR_CONTAINER) \
 				   --build-arg SETUPDIR=$(SETUPDIR) \
+				   --platform linux/amd64 \
 				   --no-cache \
 				   -f $(SETUPDIR)/dockerfiles/$(DOCKER_IMAGE_WEB3PY).latest.Dockerfile \
 				   -t $(DOCKER_IMAGE_WEB3PY):latest . \
@@ -127,6 +128,7 @@ build-smartenv-web3js: ## Build docker image for smartenv-web3js according to do
 	  			   --build-arg GID=$(DOCKER_GID) \
 				   --build-arg WORKDIR_CONTAINER=$(WORKDIR_CONTAINER) \
 				   --build-arg SETUPDIR=$(SETUPDIR) \
+				   --platform linux/amd64 \
 				   --no-cache \
 				   -f $(SETUPDIR)/dockerfiles/$(DOCKER_IMAGE_WEB3JS).latest.Dockerfile \
 				   -t $(DOCKER_IMAGE_WEB3JS):latest . \
@@ -140,6 +142,7 @@ build-smartenv-geth: ## Build docker image for smartenv-geth according to docker
 	  			   --build-arg GID=$(DOCKER_GID) \
 				   --build-arg WORKDIR_CONTAINER=$(WORKDIR_CONTAINER) \
 				   --build-arg VERSIONTAG=$(GETH_VERSIONTAG) \
+				   --platform linux/amd64 \
 				   --no-cache \
 				   -f $(SETUPDIR)/dockerfiles/$(DOCKER_IMAGE_GETH).latest.Dockerfile \
 				   -t $(DOCKER_IMAGE_GETH):latest . \
@@ -161,6 +164,7 @@ network: ## Setup the docker network as configures in Makefile header
 run-ganache-cli: ## Run ganache-cli docker container, remove flag -d in Makefile for non-determinsitic mode
 	( \
   	docker run \
+		--platform linux/amd64 \
 	    -p 127.0.0.1:$(HOST_PORT_GANACHE):$(DOCKER_PORT_GANACHE) \
   		--net $(DOCKER_NETWORK_NAME) \
   		--hostname $(DOCKER_HOSTNAME_GANACHE) \
@@ -172,6 +176,7 @@ run-ganache-cli: ## Run ganache-cli docker container, remove flag -d in Makefile
 run-smartenv-web3py: ## Run smartenv-web3py docker container
 	( \
   	docker run \
+		--platform linux/amd64 \
 	    -p 127.0.0.1:$(HOST_PORT_WEB3PY):$(DOCKER_PORT_WEB3PY) \
 		-e CONTAINER_PORT=$(DOCKER_PORT_WEB3PY) \
 		--mount type=bind,source=$(WORKDIR_HOST),target=$(WORKDIR_CONTAINER) \
@@ -185,6 +190,7 @@ run-smartenv-web3py: ## Run smartenv-web3py docker container
 run-smartenv-web3js: ## Run smartenv-web3py docker container
 	( \
   	docker run \
+		--platform linux/amd64 \
 	    -p 127.0.0.1:$(HOST_PORT_WEB3JS):$(DOCKER_PORT_WEB3JS) \
 		-e CONTAINER_PORT=$(DOCKER_PORT_WEB3JS) \
 		--mount type=bind,source=$(WORKDIR_HOST),target=$(WORKDIR_CONTAINER) \
@@ -198,6 +204,7 @@ run-smartenv-web3js: ## Run smartenv-web3py docker container
 debug-smartenv-web3py: ## Run debug shell instead of command in smartenv-web3py docker container: $ HOST_PORT_WEB3PY=8889 DOCKER_PORT_WEB3PY=8888 make debug-smartenv-web3py DOCKER_UID=0
 	( \
   	docker run \
+		--platform linux/amd64 \
 	    -p 127.0.0.1:$(HOST_PORT_WEB3PY):$(DOCKER_PORT_WEB3PY) \
 		-e CONTAINER_PORT=$(DOCKER_PORT_WEB3PY) \
 		--mount type=bind,source=$(WORKDIR_HOST),target=$(WORKDIR_CONTAINER) \
@@ -231,6 +238,7 @@ init-smartenv-geth-bob: ## Initialized smartenv-geth datadir for client bob
 	( \
 	mkdir -p datadir/logs; \
   	docker run \
+		--platform linux/amd64 \
 		-p ${DOCKER_INTERFACE_GETH_BOB}:${HOST_PORT_GETH_BOB}:${DOCKER_PORT_GETH_BOB} \
 		-p 127.0.0.1:${HOST_RPCPORT_GETH_BOB}:${DOCKER_RPCPORT_GETH_BOB} \
 		-p 127.0.0.1:${HOST_WSPORT_GETH_BOB}:${DOCKER_WSPORT_GETH_BOB} \
@@ -244,7 +252,7 @@ init-smartenv-geth-bob: ## Initialized smartenv-geth datadir for client bob
 			--datadir "$(GETH_BOB_DATADIR)" \
 			--verbosity 6 \
 			init $(SETUPDIR)genesis_config/go-ethereum/berlin/genesis.json \
-			2>&1 | tee "datadir/logs/$(GETH_BOB_NODEID)_$(shell date -Is)_run.log" \
+			2>&1 | tee "datadir/logs/$(GETH_BOB_NODEID)_$(shell date -Iseconds)_run.log" \
 	)
 
 .PHONY: init-smartenv-geth-alice
@@ -252,6 +260,7 @@ init-smartenv-geth-alice: ## Initialized smartenv-geth datadir for client alice
 	( \
 	mkdir -p datadir/logs; \
 	docker run \
+		--platform linux/amd64 \
 		-p ${DOCKER_INTERFACE_GETH_ALICE}:${HOST_PORT_GETH_ALICE}:${DOCKER_PORT_GETH_ALICE} \
 		-p 127.0.0.1:${HOST_RPCPORT_GETH_ALICE}:${DOCKER_RPCPORT_GETH_ALICE} \
 		-p 127.0.0.1:${HOST_WSPORT_GETH_ALICE}:${DOCKER_WSPORT_GETH_ALICE} \
@@ -266,13 +275,14 @@ init-smartenv-geth-alice: ## Initialized smartenv-geth datadir for client alice
 			--datadir "$(GETH_ALICE_DATADIR)" \
 			--verbosity 6 \
 			init $(SETUPDIR)genesis_config/go-ethereum/berlin/genesis.json \
-			2>&1 | tee "datadir/logs/$(GETH_ALICE_NODEID)_$(shell date -Is)_run.log" \
+			2>&1 | tee "datadir/logs/$(GETH_ALICE_NODEID)_$(shell date -Iseconds)_run.log" \
 	)
 
 .PHONY: run-smartenv-geth-bob
 run-smartenv-geth-bob: ## run smartenv-geth docker container for client bob
 	( \
   	docker run \
+		--platform linux/amd64 \
 		-p ${DOCKER_INTERFACE_GETH_BOB}:${HOST_PORT_GETH_BOB}:${DOCKER_PORT_GETH_BOB} \
 		-p 127.0.0.1:${HOST_RPCPORT_GETH_BOB}:${DOCKER_RPCPORT_GETH_BOB} \
 		-p 127.0.0.1:${HOST_WSPORT_GETH_BOB}:${DOCKER_WSPORT_GETH_BOB} \
@@ -301,13 +311,14 @@ run-smartenv-geth-bob: ## run smartenv-geth docker container for client bob
 			--metrics \
 			--verbosity 6 \
 			console \
-			2>&1 | tee "datadir/logs/$(GETH_BOB_NODEID)_$(shell date -Is)_run.log" \
+			2>&1 | tee "datadir/logs/$(GETH_BOB_NODEID)_$(shell date -Iseconds)_run.log" \
 	)
 
 .PHONY: run-smartenv-geth-alice
 run-smartenv-geth-alice: ## Run smartenv-geth docker container for PoA node alice
 	( \
   	docker run \
+		--platform linux/amd64 \
 		-p ${DOCKER_INTERFACE_GETH_ALICE}:${HOST_PORT_GETH_ALICE}:${DOCKER_PORT_GETH_ALICE} \
 		-p 127.0.0.1:${HOST_RPCPORT_GETH_ALICE}:${DOCKER_RPCPORT_GETH_ALICE} \
 		-p 127.0.0.1:${HOST_WSPORT_GETH_ALICE}:${DOCKER_WSPORT_GETH_ALICE} \
@@ -340,13 +351,14 @@ run-smartenv-geth-alice: ## Run smartenv-geth docker container for PoA node alic
 			--metrics \
 			--verbosity 6 \
 			console \
-			2>&1 | tee "datadir/logs/$(GETH_ALICE_NODEID)_$(shell date -Is)_run.log" \
+			2>&1 | tee "datadir/logs/$(GETH_ALICE_NODEID)_$(shell date -Iseconds)_run.log" \
 	)
 
 .PHONY: debug-smartenv-geth
 debug-smartenv-geth: ## Run debug shell instead of command in smartenv-geth docker container: $ make debug-smartenv-geth DOCKER_UID=0
 	( \
   	docker run \
+		--platform linux/amd64 \
 	    -p ${DOCKER_INTERFACE_GETH_BOB}:${HOST_PORT_GETH_BOB}:${DOCKER_PORT_GETH_BOB} \
 		-p 127.0.0.1:${HOST_RPCPORT_GETH_BOB}:${DOCKER_RPCPORT_GETH_BOB} \
 		-p 127.0.0.1:${HOST_WSPORT_GETH_BOB}:${DOCKER_WSPORT_GETH_BOB} \
@@ -375,6 +387,7 @@ run-smartenv-bitcoin-testnet: ## Run bitcoin testnet in docker container connect
 	mkdir -p $(BTC_DATADIR_TESTNET); \
     cp --update $(SETUPDIR)bitcoin/testnet/bitcoin.conf $(BTC_DATADIR_TESTNET)bitcoin.conf; \
   	docker run \
+		--platform linux/amd64 \
         --rm -it \
         --name bitcoin-testnet \
         --net $(DOCKER_NETWORK_NAME) \
