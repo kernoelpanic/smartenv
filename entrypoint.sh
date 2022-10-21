@@ -22,6 +22,9 @@ else
   echo "VENV is created"
   python -m venv venv
   . ${PYTHON_VENV_PATH}/bin/activate
+  # fix for
+  # error: invalid command 'bdist_wheel'
+  pip install wheel
   python -m pip install -r ${PYTHON_REQUIREMENTS}
 fi
 

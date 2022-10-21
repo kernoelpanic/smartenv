@@ -44,6 +44,9 @@ Consider also to run docker as user and not as root like so:
 The next step is building the docker images for the containers that are running Ethereum nodes and our development environment. Note that the build and run shell scripts for the containers use the current user/group to map this directory into the running container later. So make sure the user who builds the containers is the same user that will run the containers later. Also 
 make sure that this user can run docker containers i.e., is in the group `docker`. 
 
+### ARM64 based systems note
+To build the docker images on a arm64 based system, rename the `Makefile-arm64` to `Makefile` (first rename the original `Makefile` to something else). Afterwards you can continue building the images as described below.
+
 ### go-ethereum docker container (`smartenv`)
 It is possible to use already available [go-ethereum sources](https://github.com/ethereum/go-ethereum) (and builds) located in this directory in a folder named `src-clients/go-ethereum`. 
 If such a folder is not available the current sources will be fetched. 
