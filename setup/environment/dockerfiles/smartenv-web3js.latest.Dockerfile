@@ -61,3 +61,4 @@ USER $UNAME
 # Run jupyter per default:
 CMD ["node"]
 #ENTRYPOINT ["/smartenv/entrypoint.sh"]
+
