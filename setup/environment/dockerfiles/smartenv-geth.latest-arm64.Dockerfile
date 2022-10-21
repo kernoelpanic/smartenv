@@ -4,7 +4,7 @@
 # Overview of ubuntu docker images
 #https://hub.docker.com/_/ubuntu
 #FROM ubuntu:eoan
-FROM ubuntu:focal
+FROM arm64v8/ubuntu:focal
 
 # Add a user given as build argument
 ARG UNAME=smartenv
@@ -96,3 +96,4 @@ USER $UNAME
 # Output version info per default:
 RUN echo "GETH VERSION:"
 CMD ["geth", "version"]
+

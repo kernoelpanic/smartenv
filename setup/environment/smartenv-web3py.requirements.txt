@@ -1,5 +1,3 @@
-wheel
-
 ## smart contract related ##
 web3 
 py-solc

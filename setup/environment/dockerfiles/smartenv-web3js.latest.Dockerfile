@@ -4,7 +4,7 @@
 # Overview of ubuntu docker images
 #https://hub.docker.com/_/ubuntu
 #FROM ubuntu:eoan
-FROM arm64v8/ubuntu:focal
+FROM ubuntu:focal
 
 # Add a user given as build argument
 ARG UNAME=smartenv
@@ -61,4 +61,3 @@ USER $UNAME
 # Run jupyter per default:
 CMD ["node"]
 #ENTRYPOINT ["/smartenv/entrypoint.sh"]
-

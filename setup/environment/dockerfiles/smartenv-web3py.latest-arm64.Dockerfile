@@ -4,7 +4,7 @@
 # Overview of ubuntu docker images
 #https://hub.docker.com/_/ubuntu
 #FROM ubuntu:eoan
-FROM ubuntu:focal
+FROM arm64v8/ubuntu:focal
 
 # Add a user given as build argument
 ARG UNAME=smartenv
@@ -43,6 +43,11 @@ RUN apt-get install -y build-essential pkg-config autoconf libtool libssl-dev li
 RUN apt-get install -y git wget curl
 # Additional system tools 
 RUN apt-get install -y vim iputils-ping netcat iproute2 sudo
+# Overcome the arm64 issue when running solc static binary
+RUN apt-get install -y libc6-amd64-cross
+RUN ln -s /usr/x86_64-linux-gnu/lib64/ /lib64
+ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/lib64:/usr/x86_64-linux-gnu/lib"
+
 
 # get recent solc versions for testing
 # https://github.com/ethereum/solidity/releases/
@@ -60,7 +65,7 @@ RUN cd /usr/local/bin \
 # https://gethstore.blob.core.windows.net/builds/geth-alltools-linux-amd64-1.9.23-8c2f2715.tar.gz
 RUN mkdir -p /tmp/gethtools \
 	&& cd /tmp/gethtools \
-  && wget -q https://gethstore.blob.core.windows.net/builds/geth-alltools-linux-amd64-1.10.3-991384a7.tar.gz \
+  && wget -q https://gethstore.blob.core.windows.net/builds/geth-alltools-linux-arm64-1.10.25-69568c55.tar.gz \
   && tar --strip-components=1 -xzf /tmp/gethtools/*.tar.gz \
   && cp /tmp/gethtools/* /usr/local/bin
 
@@ -77,3 +82,4 @@ USER $UNAME
 # Run jupyter per default:
 #CMD ["jupyter", "notebook", "--ip", "0.0.0.0", "--port", "8888"]
 ENTRYPOINT ["/smartenv/entrypoint.sh"]
+
