@@ -1,3 +1,5 @@
+# fix for:
+# error: invalid command 'bdist_wheel' (arm64)
 wheel
 
 ## smart contract related ##
