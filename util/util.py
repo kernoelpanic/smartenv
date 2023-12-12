@@ -20,7 +20,7 @@ def connect(host=None,port=None,poa=False):
         host=HOST
     if port is None:
         port=PORT
-    if w3 is None or not w3.isConnected():
+    if w3 is None or not w3.is_connected():
         w3 = web3.Web3(web3.HTTPProvider(f"http://{host}:{port}", request_kwargs={"timeout": 60 * 1000}))
         if poa:
             # inject PoA compatibility
@@ -28,7 +28,7 @@ def connect(host=None,port=None,poa=False):
             w3.middleware_onion.inject(geth_poa_middleware, layer=0)
             # inject the old way:
             #w3.middleware_stack.inject(geth_poa_middleware, layer=0)
-    assert w3.isConnected(), "Connecting to local Ethereum node failed!"
+    assert w3.is_connected(), "Connecting to local Ethereum node failed!"
     return w3
 
 
@@ -114,7 +114,7 @@ def deploy_contract(
     """
     if account is None:
         account = w3.eth.accounts[0]
-        w3.eth.defaultAccount = account
+        w3.eth.default_account = account
     if gas is None:
         # somewhere around max gas
         #gas = 5_000_000 # this is too large for some default chain configs
@@ -140,7 +140,7 @@ def deploy_contract(
                  "gas":gas,
                  "value":value})
     if wait:
-        tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
+        tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
         return tx_receipt
     else:
         return tx_hash
@@ -211,7 +211,8 @@ def compile_and_deploy_contract(path,
         wait=True,
         value=0,
         gas=None,
-        compiler="solc"):
+        compiler="solc",
+        w3conn=None):
     """ compiles and deploy the given contract (from the ./contracts folder)
         returns the contract instance
 
@@ -219,14 +220,18 @@ def compile_and_deploy_contract(path,
         with custom flags per default: compiler="solc"
         Change to custom path to compiler location if necessary.
     """
-    if not w3 or not w3.isConnected():
+    global w3 
+    if w3conn is not None:
+        w3 = w3conn
+
+    if not w3 or not w3.is_connected():
         connect()
     if account is None:
-        if w3.isAddress(w3.eth.defaultAccount):
-            account = w3.eth.defaultAccount
+        if w3.is_address(w3.eth.default_account):
+            account = w3.eth.default_account
         else:
             account = w3.eth.accounts[0]
-            w3.eth.defaultAccount = account
+            w3.eth.default_account = account
 
     # compile manually
     interface = compile_contract_with_libs(compiler_path=compiler,

@@ -18,6 +18,9 @@ bitcoinlib
 py-ecc
 pytest
 sympy
+
+# jupyter (old) and jupyter-lab environment
 ipython
 jupyter
+jupyterlab
 

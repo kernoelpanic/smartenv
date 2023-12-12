@@ -29,4 +29,5 @@ else
 fi
 
 . ${PYTHON_VENV_PATH}/bin/activate 
-jupyter notebook --ip "0.0.0.0" --port ${CONTAINER_PORT}
+#jupyter notebook --ip "0.0.0.0" --port ${CONTAINER_PORT}
+jupyter-lab --ip "0.0.0.0" --port ${CONTAINER_PORT}
