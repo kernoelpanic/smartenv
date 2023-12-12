@@ -162,6 +162,9 @@ def get_contract_instance(
     elif path is not None:
         cabi=compile_contract_with_libs(compiler,path)["abi"]
 
+    """
+    # Depricated since v6: 
+    #https://web3py.readthedocs.io/en/stable/v5_migration.html#deprecated-concisecontract-and-implicitcontract
     if concise:
         instance = w3.eth.contract(
             address=caddress,
@@ -179,7 +182,10 @@ def get_contract_instance(
         for name, func in instance.__dict__.items():
             if isinstance(func, web3.contract.ConciseMethod):
                 instance.__dict__[name] = _tx_executor(func)
-
+    """
+    instance = w3.eth.contract(
+            address=caddress,
+            abi=cabi)
     return instance
 
 def _tx_executor(contract_function):
