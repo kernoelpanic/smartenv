@@ -15,9 +15,10 @@ ethereum # pyethereum
 bitcoinlib
 
 ## other required python packages ##
-py-ecc
+#py-ecc
 pytest
 sympy
+requests
 
 # jupyter (old) and jupyter-lab environment
 ipython

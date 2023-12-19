@@ -9,7 +9,9 @@ DOCKER_GID ?= $(shell id -g)
 DOCKER_IMAGE_GETH=smartenv-geth
 GETH_VERSIONTAG ?= v1.10.3
 DOCKER_IMAGE_WEB3PY=smartenv-web3py
-DOCKER_IMAGE_GANACHE=trufflesuite/ganache-cli
+#DOCKER_IMAGE_GANACHE=trufflesuite/ganache-cli
+DOCKER_IMAGE_GANACHE=trufflesuite/ganache
+DOCKER_IMAGE_FOUNDRY=ghcr.io/foundry-rs/foundry
 DOCKER_IMAGE_WEB3JS=smartenv-web3js
 
 DOCKER_NETWORK_NAME=smartnet
@@ -21,6 +23,7 @@ DOCKER_IP_WEB3JS=172.18.0.4
 DOCKER_IP_GANACHE=172.18.0.2
 
 DOCKER_HOSTNAME_GANACHE=ganache
+DOCKER_HOSTNAME_FOUNDRY=foundry
 DOCKER_PORT_GANACHE ?= 8545
 HOST_PORT_GANACHE ?= 8540
 
@@ -108,6 +111,11 @@ build-ganache-cli: ## Download std. docker image for ganache-cli
 	  docker pull $(DOCKER_IMAGE_GANACHE):latest \
 	)
 
+.PHONY: build-foundry ## Download std. foundry docker image 
+	( \
+		docker pull $(DOCKER_IMAGE_FOUNDRY):latest \
+	)
+
 .PHONY: build-smartenv-web3py
 build-smartenv-web3py: ## Build docker image for smartenv-web3py according to docker file
 	( \
@@ -169,8 +177,20 @@ run-ganache-cli: ## Run ganache-cli docker container, remove flag -d in Makefile
   		--net $(DOCKER_NETWORK_NAME) \
   		--hostname $(DOCKER_HOSTNAME_GANACHE) \
   		--ip $(DOCKER_IP_GANACHE) \
-  		-it $(DOCKER_IMAGE_GANACHE):latest -d --gasLimit 80000000 --allowUnlimitedContractSize \
+  		-it $(DOCKER_IMAGE_GANACHE):latest -d --gasLimit 80000000 --chain.allowUnlimitedContractSize --miner.coinbase 0xebD9A7D2598068499d5885ACf21D3a46248497e0 \
 	)
+
+.PHONY: run-ganache-cli
+run-foundry: ## Run foundry docker container
+	( \
+    docker run \
+    --platform linux/amd64 \
+      -p 127.0.0.1:$(HOST_PORT_GANACHE):$(DOCKER_PORT_GANACHE) \
+      --net $(DOCKER_NETWORK_NAME) \
+      --hostname $(DOCKER_HOSTNAME_GANACHE) \
+      --ip $(DOCKER_IP_GANACHE) \
+      -it $(DOCKER_IMAGE_FOUNDRY):latest anvil -d --gasLimit 80000000 --chain.allowUnlimitedContractSize --miner.coinbase 0xebD9A7D2598068499d5885ACf21D3a46248497e0 \
+  )
 
 .PHONY: run-smartenv-web3py
 run-smartenv-web3py: ## Run smartenv-web3py docker container

@@ -32,7 +32,7 @@ def connect(host=None,port=None,poa=False):
     return w3
 
 
-def compile_contract_with_libs(compiler_path,src_path,account=None,gas=None):
+def compile_contract_with_libs(compiler_path,src_path,account=None,gas=None,debug=False):
     """ compile a single contract file (with libraries) and manually call the compiler.
     Use only absolute paths its better.
     """
@@ -50,7 +50,8 @@ def compile_contract_with_libs(compiler_path,src_path,account=None,gas=None):
 
     # We have compiled a contract with dependencies e.g., on libs
     for sfile in compiler_output["contracts"]:
-        if sfile.split(":")[0] == src_path:
+        if debug: print(f"sfile: {sfile}")
+        if src_path.endswith(sfile.split(":")[0]):
             # First identify the base contract
             c_abi = compiler_output["contracts"][sfile]["abi"]
             c_bin = compiler_output["contracts"][sfile]["bin"]
@@ -66,8 +67,9 @@ def compile_contract_with_libs(compiler_path,src_path,account=None,gas=None):
                              "bin_str": compiler_output["contracts"][sfile]["bin"],
                              "abi_str": compiler_output["contracts"][sfile]["abi"] }
 
-    #print(c_bin)
-    #print()
+    if debug: 
+        print(f"c_bin: {c_bin}")
+        print(f"c_abi: {c_abi}")
     for sfile,sdata in c_dep.items():
         if c_bin.find(sdata["replace_str"]) != -1:
             # replacement string found in compile binary base contract.
@@ -218,7 +220,8 @@ def compile_and_deploy_contract(path,
         value=0,
         gas=None,
         compiler="solc",
-        w3conn=None):
+        w3conn=None,
+        debug=False):
     """ compiles and deploy the given contract (from the ./contracts folder)
         returns the contract instance
 
@@ -240,11 +243,15 @@ def compile_and_deploy_contract(path,
             w3.eth.default_account = account
 
     # compile manually
+    if debug: 
+        print(f"src path: {path}")
+        print(f"compiler path: {compiler}")
     interface = compile_contract_with_libs(compiler_path=compiler,
                                            src_path=path,
                                            account=account,
                                            gas=gas)
 
+    if debug: print(f"interface abi: {interface['abi']}")
     ret = deploy_contract(
                 cabi=interface["abi"],
                 cbin=interface["bin"],
