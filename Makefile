@@ -189,7 +189,7 @@ run-foundry: ## Run foundry docker container
       --net $(DOCKER_NETWORK_NAME) \
       --hostname $(DOCKER_HOSTNAME_GANACHE) \
       --ip $(DOCKER_IP_GANACHE) \
-      -it $(DOCKER_IMAGE_FOUNDRY):latest anvil -d --gasLimit 80000000 --chain.allowUnlimitedContractSize --miner.coinbase 0xebD9A7D2598068499d5885ACf21D3a46248497e0 \
+      -it $(DOCKER_IMAGE_FOUNDRY):latest "anvil --host 0.0.0.0 --balance 1000 --mnemonic 'negative vintage rhythm moral state journey smart fiscal crush poet smooth blossom dose pencil else' --gas-limit 80000000" \
   )
 
 .PHONY: run-smartenv-web3py
